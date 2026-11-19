@@ -1,0 +1,5 @@
+vendor/
+build-*/
+install-*/
+__pycache__/
+*.evidence/
