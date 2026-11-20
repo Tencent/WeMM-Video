@@ -45,8 +45,6 @@ and 9B dense models and a 35B-A3B mixture-of-experts model.
   <a href="assets/wemm-video-architecture.pdf">
     <img src="assets/wemm-video-architecture.png" width="75%" alt="WeMM-Video architecture. A vision encoder and an audio encoder feed image, timestamped video frame, and audio tokens into a language model alongside text tokens.">
   </a>
-  <br>
-  <a href="assets/wemm-video-architecture.pdf">Architecture diagram (PDF)</a>
 </p>
 
 ## Model Zoo
