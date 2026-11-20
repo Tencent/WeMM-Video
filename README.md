@@ -234,7 +234,7 @@ The [model license](LICENSE) covers the WeMM-Video collection as of November 20,
 See the [third-party notices](THIRD_PARTY_NOTICES.md) and
 [example media credits](examples/README.md#media-credits) for applicable terms
 and attribution. Check the Hugging Face model card for each checkpoint's license.
-
+ 
 ## Citation
 
 If you use WeMM-Video in your research, please cite the project.
