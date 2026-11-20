@@ -41,11 +41,19 @@ WeMM-Video 是面向音画联合感知与推理的中英双语全模态基础模
   </a>
 </p>
 
-**WeMM-Video-35B-A3B** 刷新了开源模型最佳水平（SOTA），同时超越了 Qwen3.5-Omni-Flash 和 Seed2.0-Mini-0428 等闭源模型，并缩小了与 Gemini-3.0-Flash 的差距。
+**WeMM-Video-35B-A3B** 在全模态视频理解上刷新了开源模型最佳水平（SOTA），超越了 Qwen3.5-Omni-Flash 和 Seed2.0-Mini-0428 等闭源模型，并缩小了与 Gemini-3.0-Flash 的差距。
 
 <p align="center">
   <a href="assets/wemm-video-benchmarks.png">
     <img src="assets/wemm-video-benchmarks.png" width="90%" alt="WeMM-Video 全模态视频基准评测结果">
+  </a>
+</p>
+
+**WeMM-Video-35B-A3B** 和 **WeMM-Video-9B** 在通用音频理解上取得了领先性能。
+
+<p align="center">
+  <a href="assets/wemm_index_audio.png">
+    <img src="assets/wemm_index_audio.png" width="90%" alt="WeMM-Video 音频基准评测结果">
   </a>
 </p>
 
