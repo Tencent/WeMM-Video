@@ -63,9 +63,6 @@ Here is the architecture of the WeMM-Video family.
 | 9B | [WeMM-Video-9B](https://huggingface.co/tencent/WeMM-Video-9B) | [WeMM-Video-9B-FP8](https://huggingface.co/tencent/WeMM-Video-9B-FP8) | [WeMM-Video-9B-AWQ](https://huggingface.co/tencent/WeMM-Video-9B-AWQ) | [WeMM-Video-9B-GGUF](https://huggingface.co/tencent/WeMM-Video-9B-GGUF) | [WeMM-Video-9B-NVFP4](https://huggingface.co/tencent/WeMM-Video-9B-NVFP4) |
 | 35B-A3B | [WeMM-Video-35BA3B](https://huggingface.co/tencent/WeMM-Video-35BA3B) | [WeMM-Video-35BA3B-FP8](https://huggingface.co/tencent/WeMM-Video-35BA3B-FP8) | [WeMM-Video-35BA3B-AWQ](https://huggingface.co/tencent/WeMM-Video-35BA3B-AWQ) | [WeMM-Video-35BA3B-GGUF](https://huggingface.co/tencent/WeMM-Video-35BA3B-GGUF) | [WeMM-Video-35BA3B-NVFP4](https://huggingface.co/tencent/WeMM-Video-35BA3B-NVFP4) |
 
-Use an authorized Hugging Face account or `HF_TOKEN` for restricted
-repositories. See the model cards for checkpoint details and licensing.
-
 ## Quick Start
 
 ### Install dependencies
