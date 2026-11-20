@@ -1,4 +1,4 @@
-<h1 align="center">WeMM-Video</h1>
+<h1 align="center">WeMM-Video: Pushing the Frontiers of Open-Source Omni-Modal Video Understanding</h1>
 
 <p align="center">
   <b>English</b> · <a href="README_zh.md">简体中文</a>
@@ -6,16 +6,16 @@
 
 <p align="center">
   <a href="https://github.com/Tencent/WeMM-Video"><img src="https://img.shields.io/badge/GitHub-WeMM--Video-24292F?logo=github&amp;logoColor=white" alt="GitHub repository"></a>
-  <a href="https://huggingface.co/collections/tencent/wemm-video"><img src="https://img.shields.io/badge/Hugging%20Face-Model%20Collection-FFD21E?logo=huggingface&amp;logoColor=black" alt="Hugging Face model collection"></a>
+  <a href="https://arxiv.org/abs/2611.26409"><img src="https://img.shields.io/badge/arXiv-Paper-B31B1B?logo=arxiv&amp;logoColor=white" alt="arXiv paper"></a>
+  <a href="https://huggingface.co/collections/tencent/wemm-video"><img src="https://img.shields.io/badge/Hugging%20Face-Model%20Collection-FFD21E?logo=huggingface&amp;logoColor=FFD21E" alt="Hugging Face model collection"></a>
   <a href="LICENSE#L12"><img src="https://img.shields.io/badge/License-Apache%202.0-0969DA?logo=apache&amp;logoColor=white" alt="Apache 2.0 license"></a>
 </p>
 
 <p align="center">
-  <a href="#architecture">Architecture</a> ·
+  <a href="#architecture--evaluation">Architecture &amp; Evaluation</a> ·
   <a href="#model-zoo">Model Zoo</a> ·
   <a href="#quick-start">Quick Start</a> ·
   <a href="#serving-and-examples">Serving and Examples</a> ·
-  <a href="#evaluation">Evaluation</a> ·
   <a href="#citation">Citation</a>
 </p>
 
@@ -29,9 +29,7 @@ and 9B dense models and a 35B-A3B mixture-of-experts model.
 
 - **Inference modes.** Instruct mode gives fast, direct responses. Thinking mode
   supports explicit multi-step reasoning.
-- **Training.** Pre-training uses approximately 1.2 trillion multimodal tokens.
-  Post-training combines multi-teacher OPD, anti-repetition MrDPO, and specialist
-  reinforcement learning.
+- **Training.** Trained on approximately 1.2 trillion multimodal tokens through progressive pre-training and multi-stage post-training.
 
 <p align="center">
   <a href="assets/wemm-video-capabilities-compact.png">
@@ -39,11 +37,20 @@ and 9B dense models and a 35B-A3B mixture-of-experts model.
   </a>
 </p>
 
-### Architecture
+## Architecture & Evaluation
 
+Here is the architecture of the WeMM-Video family.
 <p align="center">
   <a href="assets/wemm-video-architecture.pdf">
     <img src="assets/wemm-video-architecture.png" width="75%" alt="WeMM-Video architecture. A vision encoder and an audio encoder feed image, timestamped video frame, and audio tokens into a language model alongside text tokens.">
+  </a>
+</p>
+
+**WeMM-Video-35B-A3B** establishes a new open-source state of the art. It also outperforms proprietary models such as Qwen3.5-Omni-Flash and Seed2.0-Mini-0428 and narrows the gap with Gemini-3.0-Flash.
+
+<p align="center">
+  <a href="assets/wemm-video-benchmarks.png">
+    <img src="assets/wemm-video-benchmarks.png" width="90%" alt="WeMM-Video omni-modal video benchmark results">
   </a>
 </p>
 
@@ -214,19 +221,6 @@ python examples/chat.py video-audio --model tencent/WeMM-Video-2B
 ```
 
 The [examples](examples/README.md) cover text, images, audio, video, and video with audio.
-
-## Evaluation
-
-The WeMM-Video technical report evaluates the family on more than 120
-benchmarks covering joint audio-visual video understanding and reasoning,
-general audio, silent video, images, and text.
-
-- **WeMM-Video-35B-A3B** leads the open-source models in the report's
-  omni-modal video evaluations. It outperforms Qwen3.5-Omni-Flash and
-  Seed2.0-Mini-0428 in those evaluations and narrows the gap to
-  Gemini-3.0-Flash.
-- **WeMM-Video-9B** outperforms the larger Qwen3-Omni-30B-A3B-Instruct in the
-  report's omni-modal video evaluations.
 
 ## Licensing
 
