@@ -46,11 +46,19 @@ Here is the architecture of the WeMM-Video family.
   </a>
 </p>
 
-**WeMM-Video-35B-A3B** establishes a new open-source state of the art. It also outperforms proprietary models such as Qwen3.5-Omni-Flash and Seed2.0-Mini-0428 and narrows the gap with Gemini-3.0-Flash.
+**WeMM-Video-35B-A3B** establishes a new open-source state of the art on omni-model video understanding, outperforming proprietary models such as Qwen3.5-Omni-Flash and Seed2.0-Mini-0428 and narrowing the gap with Gemini-3.0-Flash.
 
 <p align="center">
   <a href="assets/wemm-video-benchmarks.png">
     <img src="assets/wemm-video-benchmarks.png" width="90%" alt="WeMM-Video omni-modal video benchmark results">
+  </a>
+</p>
+
+**WeMM-Video-35B-A3B** also achieves leading performance on general audio understanding.
+
+<p align="center">
+  <a href="assets/wemm_index_audio.png">
+    <img src="assets/wemm_index_audio.png" width="90%" alt="WeMM-Video audio benchmark results">
   </a>
 </p>
 
