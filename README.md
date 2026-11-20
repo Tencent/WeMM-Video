@@ -241,10 +241,13 @@ and attribution. Check the Hugging Face model card for each checkpoint's license
 If you use WeMM-Video in your research, please cite the project.
 
 ```bibtex
-@misc{wemmvideo2026,
-  author = {{Tencent}},
-  title = {{WeMM-Video}},
-  year = {2026},
-  url = {https://github.com/Tencent/WeMM-Video}
+@misc{WeMM-Video,
+      title={WeMM-Video: Pushing the Frontiers of Open-Source Omni-Modal Video Understanding}, 
+      author={Changli Tang and Jie Yang and Tianyi Wang and Lei Li and Daoze Zhang and Zijie Xin and Zhan Liu and Li Li and Jinchang Xu and Fengyun Rao and Chao Zhang and Jing Lyu},
+      year={2026},
+      eprint={2611.26409},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2611.26409}, 
 }
 ```
