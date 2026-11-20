@@ -1,4 +1,4 @@
-<h1 align="center">WeMM-Video</h1>
+<h1 align="center">WeMM-Video: Pushing the Frontiers of Open-Source Omni-Modal Video Understanding</h1>
 
 <p align="center">
   <a href="README.md">English</a> · <b>简体中文</b>
@@ -6,44 +6,47 @@
 
 <p align="center">
   <a href="https://github.com/Tencent/WeMM-Video"><img src="https://img.shields.io/badge/GitHub-WeMM--Video-24292F?logo=github&amp;logoColor=white" alt="GitHub 代码仓库"></a>
-  <a href="https://huggingface.co/collections/tencent/wemm-video"><img src="https://img.shields.io/badge/Hugging%20Face-Model%20Collection-FFD21E?logo=huggingface&amp;logoColor=black" alt="Hugging Face 模型集合"></a>
+  <a href="https://arxiv.org/abs/2611.26409"><img src="https://img.shields.io/badge/arXiv-Paper-B31B1B?logo=arxiv&amp;logoColor=white" alt="arXiv 论文"></a>
+  <a href="https://huggingface.co/collections/tencent/wemm-video"><img src="https://img.shields.io/badge/Hugging%20Face-Model%20Collection-FFD21E?logo=huggingface&amp;logoColor=FFD21E" alt="Hugging Face 模型集合"></a>
   <a href="LICENSE#L12"><img src="https://img.shields.io/badge/License-Apache%202.0-0969DA?logo=apache&amp;logoColor=white" alt="Apache 2.0 许可证"></a>
 </p>
 
 <p align="center">
-  <a href="#模型概览">模型概览</a> ·
-  <a href="#模型架构">模型架构</a> ·
+  <a href="#架构与评测">架构与评测</a> ·
   <a href="#模型列表">模型列表</a> ·
   <a href="#快速开始">快速开始</a> ·
   <a href="#部署与示例">部署与示例</a> ·
-  <a href="#评测">评测</a> ·
   <a href="#引用">引用</a>
 </p>
 
 ## 模型概览
 
-WeMM-Video 是面向音画联合感知与推理的中英双语全模态基础模型系列。模型接收文本、图像、音频和视频，输出文本回答。处理视频时，模型可以同时利用画面和原始音轨。
+WeMM-Video 是面向音画联合感知与推理的中英双语全模态基础模型系列。模型接收文本、图像、音频和视频，输出文本回答。处理视频时，模型可以同时利用画面和原始音轨。该系列包含 2B、4B、9B 稠密模型和 35B-A3B 混合专家模型（MoE）。
 
-- **模型规模**包括 2B、4B、9B 稠密模型和 35B-A3B 混合专家模型（MoE）。
-- **Instruct 模式**快速直接作答，**Thinking 模式**支持显式多步推理。
-- **预训练**使用约 1.2 万亿多模态 token。**后训练**结合多教师 OPD、抗重复 MrDPO 和面向专项任务的强化学习。
+- **推理模式：** Instruct 模式快速直接作答；Thinking 模式支持显式多步推理。
+- **模型训练：** 基于约 1.2 万亿多模态 token，通过渐进式预训练与多阶段后训练构建。
 
 <p align="center">
   <a href="assets/wemm-video-capabilities-compact.png">
     <img src="assets/wemm-video-capabilities-compact.png" width="90%" alt="WeMM-Video 能力示例，涵盖音画联合理解与推理、音频与音乐理解，以及图像与文本理解。">
   </a>
-  <br>
-  <a href="assets/wemm-video-capabilities-compact.png">全模态能力示例（查看原图）</a>
 </p>
 
-### 模型架构
+## 架构与评测
 
+下图展示了 WeMM-Video 系列的模型架构。
 <p align="center">
   <a href="assets/wemm-video-architecture.pdf">
     <img src="assets/wemm-video-architecture.png" width="75%" alt="WeMM-Video 架构。视觉编码器和音频编码器将图像、带时间戳的视频帧和音频编码为 token，与文本 token 一同输入语言模型。">
   </a>
-  <br>
-  <a href="assets/wemm-video-architecture.pdf">架构图（PDF）</a>
+</p>
+
+**WeMM-Video-35B-A3B** 刷新了开源模型最佳水平（SOTA），同时超越了 Qwen3.5-Omni-Flash 和 Seed2.0-Mini-0428 等闭源模型，并缩小了与 Gemini-3.0-Flash 的差距。
+
+<p align="center">
+  <a href="assets/wemm-video-benchmarks.png">
+    <img src="assets/wemm-video-benchmarks.png" width="90%" alt="WeMM-Video 全模态视频基准评测结果">
+  </a>
 </p>
 
 ## 模型列表
@@ -54,8 +57,6 @@ WeMM-Video 是面向音画联合感知与推理的中英双语全模态基础模
 | 4B | [WeMM-Video-4B](https://huggingface.co/tencent/WeMM-Video-4B) | [WeMM-Video-4B-FP8](https://huggingface.co/tencent/WeMM-Video-4B-FP8) | [WeMM-Video-4B-AWQ](https://huggingface.co/tencent/WeMM-Video-4B-AWQ) | [WeMM-Video-4B-GGUF](https://huggingface.co/tencent/WeMM-Video-4B-GGUF) | [WeMM-Video-4B-NVFP4](https://huggingface.co/tencent/WeMM-Video-4B-NVFP4) |
 | 9B | [WeMM-Video-9B](https://huggingface.co/tencent/WeMM-Video-9B) | [WeMM-Video-9B-FP8](https://huggingface.co/tencent/WeMM-Video-9B-FP8) | [WeMM-Video-9B-AWQ](https://huggingface.co/tencent/WeMM-Video-9B-AWQ) | [WeMM-Video-9B-GGUF](https://huggingface.co/tencent/WeMM-Video-9B-GGUF) | [WeMM-Video-9B-NVFP4](https://huggingface.co/tencent/WeMM-Video-9B-NVFP4) |
 | 35B-A3B | [WeMM-Video-35BA3B](https://huggingface.co/tencent/WeMM-Video-35BA3B) | [WeMM-Video-35BA3B-FP8](https://huggingface.co/tencent/WeMM-Video-35BA3B-FP8) | [WeMM-Video-35BA3B-AWQ](https://huggingface.co/tencent/WeMM-Video-35BA3B-AWQ) | [WeMM-Video-35BA3B-GGUF](https://huggingface.co/tencent/WeMM-Video-35BA3B-GGUF) | [WeMM-Video-35BA3B-NVFP4](https://huggingface.co/tencent/WeMM-Video-35BA3B-NVFP4) |
-
-访问受限仓库时，请使用有权限的 Hugging Face 账号或 `HF_TOKEN`。各检查点的详细信息和许可条款见对应的模型卡。
 
 ## 快速开始
 
@@ -73,9 +74,7 @@ python -m pip install transformers==5.2.0 accelerate pillow librosa soundfile sc
 
 ### 使用 Transformers 从 Hugging Face 加载
 
-在仓库根目录运行以下 Python 示例。示例从 Hugging Face 下载 2B BF16 权重和处理器，加载一次后完成五种输入的推理。
-
-启用 `trust_remote_code` 前请先审阅模型仓库中的自定义代码。将 `revision` 设为提交 SHA 可以固定权重和自定义代码的版本。
+在仓库根目录运行以下 Python 示例。示例从 Hugging Face 下载 2B BF16 权重和处理器，加载一次后完成五种输入的推理。启用 `trust_remote_code` 前请先审阅模型仓库中的自定义代码。将 `revision` 设为提交 SHA 可以固定权重和自定义代码的版本。
 
 ```python
 import torch
@@ -187,11 +186,7 @@ docker run --rm --gpus all --shm-size=8g \
 
 #### 发送请求
 
-打过 WeMM patch 的 vLLM 和 SGLang 都通过 `POST /v1/chat/completions` 接收 `video_url` 内容项。
-
-- **音轨**由 `video_url.use_audio` 控制。`true` 同时处理画面和原始音轨，`false` 只处理画面。
-- **采帧**由 `video_url` 内的 `fps` 和 `max_frames` 控制。
-- **Thinking 模式**的设置见[完整 HTTP 请求示例](docs/serving.md#send-a-video-request)。
+对于上述两种应用 patch 的后端，向 `POST /v1/chat/completions` 发送 `video_url` 内容项即可。将 `video_url.use_audio` 设为 `true` 可包含原始音轨，设为 `false` 则仅处理画面帧。在 `video_url` 内设置 `fps` 和 `max_frames` 可控制采帧。Thinking 模式的配置方法见[完整 HTTP 请求示例](docs/serving.md#send-a-video-request)。
 
 命名卷会缓存已下载的权重，供后续容器复用。服务就绪后，在另一个终端进入仓库根目录，用仓库附带的视频发起请求。
 
@@ -202,26 +197,22 @@ python examples/chat.py video-audio --model tencent/WeMM-Video-2B
 
 [示例](examples/README.md)覆盖文本、图像、音频、视频及带音轨的视频。
 
-## 评测
-
-WeMM-Video 技术报告在 120 多项基准上评测了该系列，涵盖音画联合的视频理解与推理、通用音频、无声视频、图像和文本任务。
-
-- **WeMM-Video-35B-A3B** 在报告的全模态视频评测中领跑开源模型，优于 Qwen3.5-Omni-Flash 和 Seed2.0-Mini-0428，并缩小了与 Gemini-3.0-Flash 的差距。
-- **WeMM-Video-9B** 在报告的全模态视频评测中超越了规模更大的 Qwen3-Omni-30B-A3B-Instruct。
-
 ## 许可证
 
-WeMM-Video 项目源码按 [Apache 2.0](LICENSE#L12) 授权。[模型许可证](LICENSE)适用于截至 2026 年 11 月 20 日的 WeMM-Video 模型集合。适用的第三方条款和归属信息见[第三方声明](THIRD_PARTY_NOTICES.md)和[示例媒体署名](examples/README.md#media-credits)。各检查点的许可详情见对应的 Hugging Face 模型卡。
+WeMM-Video 项目源码按 [Apache License 2.0](LICENSE#L12) 授权。[模型许可证](LICENSE)适用于截至 2026 年 11 月 20 日的 WeMM-Video 模型集合。适用的第三方条款和归属信息见[第三方声明](THIRD_PARTY_NOTICES.md)和[示例媒体署名](examples/README.md#media-credits)。各检查点的许可详情见对应的 Hugging Face 模型卡。
 
 ## 引用
 
 如果你在研究中使用了 WeMM-Video，请引用本项目。
 
 ```bibtex
-@misc{wemmvideo2026,
-  author = {{Tencent}},
-  title = {{WeMM-Video}},
-  year = {2026},
-  url = {https://github.com/Tencent/WeMM-Video}
+@misc{WeMM-Video,
+      title={WeMM-Video: Pushing the Frontiers of Open-Source Omni-Modal Video Understanding}, 
+      author={Changli Tang and Jie Yang and Tianyi Wang and Lei Li and Daoze Zhang and Zijie Xin and Zhan Liu and Li Li and Jinchang Xu and Fengyun Rao and Chao Zhang and Jing Lyu},
+      year={2026},
+      eprint={2611.26409},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2611.26409}, 
 }
 ```
