@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WeMM-Video — Omni-Modal Video Understanding Foundation Model</title>
+  <meta name="description" content="WeMM-Video: Pushing the Frontiers of Open-Source Omni-Modal Video Understanding by WeChat Vision, Tencent Inc. & Tsinghua University." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232dd4bf'/%3E%3Cpath d='M10 11v10M16 8v16M22 12v8' stroke='%23041311' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Single Persistent Full-Page WebGL Living Wave Backdrop -->
+  <canvas id="ambient-wave-canvas" data-intensity="1.0" aria-hidden="true"></canvas>
+
+  <div class="page-shell">
+    <!-- Navigation -->
+    <header class="site-nav" id="site-nav">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-brand">
+          <span class="nav-brand-mark" aria-hidden="true">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="3"></rect>
+              <path d="M8 9v6M12 7v10M16 10v4"></path>
+            </svg>
+          </span>
+          <span>WeMM-Video</span>
+        </a>
+
+        <nav class="nav-links" id="nav-links" aria-label="Primary">
+          <a href="#capabilities" data-i18n="nav_cap">Capabilities</a>
+          <a href="#architecture" data-i18n="nav_arch">Architecture</a>
+          <a href="#data" data-i18n="nav_data">Data</a>
+          <a href="#benchmarks" data-i18n="nav_bench">Benchmarks</a>
+          <a href="#models" data-i18n="nav_models">Models</a>
+          <a href="demos.html" data-i18n="nav_demos">Demos</a>
+        </nav>
+
+        <div class="nav-actions">
+          <div class="lang-switch" role="group" aria-label="Language">
+            <button type="button" class="lang-btn active" data-lang="en">EN</button>
+            <button type="button" class="lang-btn" data-lang="zh">中文</button>
+          </div>
+          <button type="button" class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle Menu">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="7" x2="21" y2="7"></line>
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="17" x2="21" y2="17"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ====================================================================
+         HERO: Full-Viewport Cinema Title Over Living WebGL Fluid Waves
+         ==================================================================== -->
+    <section class="hero-cinema" id="top">
+      <div class="container">
+        <div class="hero-inner">
+          <div class="hero-org" data-i18n="hero_org">WeChat Vision, Tencent · Tsinghua University</div>
+          <h1 class="hero-title">WeMM-Video</h1>
+          <p class="hero-tagline" data-i18n="hero_tagline">
+            See Every Frame. Hear Every Sound. Understand Real Video.
+          </p>
+          <p class="hero-sub" data-i18n="hero_sub">
+            An open-source bilingual omni-modal foundation model family for joint audio-visual video understanding, reasoning, and general multimodal perception.
+          </p>
+
+          <div class="hero-cta-row">
+            <a class="btn btn-solid" href="https://arxiv.org/abs/2611.26409" target="_blank" rel="noopener">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+              </svg>
+              <span data-i18n="cta_paper">Paper</span>
+            </a>
+            <a class="btn" href="https://github.com/Tencent/WeMM-Video" target="_blank" rel="noopener">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.04 11.04 0 0 1 5.8 0c2.21-1.49 3.18-1.18 3.18-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.13 0 1.54-.01 2.78-.01 3.16 0 .31.21.67.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/>
+              </svg>
+              <span data-i18n="cta_github">GitHub</span>
+            </a>
+            <a class="btn" href="https://huggingface.co/collections/tencent/wemm-video" target="_blank" rel="noopener">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+              </svg>
+              <span data-i18n="cta_hf">Hugging Face</span>
+            </a>
+            <a class="btn btn-emerald" href="demos.html">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              <span data-i18n="cta_demos">Demos</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-cue" aria-hidden="true">
+        <span data-i18n="scroll_cue">Scroll</span>
+        <span class="scroll-cue-bar"></span>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 1: CAPABILITIES
+         ==================================================================== -->
+    <section class="section-band" id="capabilities">
+      <div class="container">
+        <div class="editorial-header reveal">
+          <span class="eyebrow" data-i18n="cap_eyebrow">Capabilities</span>
+          <h2 class="section-title" data-i18n="cap_title">
+            Why audio-visual understanding matters — and what WeMM-Video does.
+          </h2>
+          <p class="section-desc" data-i18n="cap_desc">
+            Most multimodal models still treat video as silent frames paired with speech transcripts. In real videos, meaning lives in the interplay between what is seen and what is heard.
+          </p>
+        </div>
+
+        <div class="story-grid reveal">
+          <div class="story-block">
+            <h3 data-i18n="story_1_title">When frames alone miss the plot</h3>
+            <p data-i18n="story_1_desc">
+              In short dramas and films, the camera may hold on one character's reaction while an off-screen voice delivers the twist, a door slams, or the soundtrack abruptly drops. Reading subtitles without hearing tone, timing, and sound effects loses who spoke and why the mood shifted.
+            </p>
+          </div>
+          <div class="story-block">
+            <h3 data-i18n="story_2_title">When audio and vision must stay in sync</h3>
+            <p data-i18n="story_2_desc">
+              In live commerce, sports, and everyday scenes, rapid camera cuts and spoken commentary unfold together—knowing which product a discount applies to or how a play develops requires understanding visual motion, speech, and ambient audio along the same timeline.
+            </p>
+          </div>
+        </div>
+
+        <div class="cap-grid reveal">
+          <div class="cap-item">
+            <div class="cap-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                <polygon points="10 9 15 12 10 15 10 9"></polygon>
+              </svg>
+            </div>
+            <h4 data-i18n="cap_1_title">Audio-Visual Video Understanding</h4>
+            <p data-i18n="cap_1_desc">Jointly comprehends dynamic scenes, spoken dialogue, speaker identity, and environmental sounds across real-world videos.</p>
+          </div>
+
+          <div class="cap-item">
+            <div class="cap-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 8v4l3 3"></path>
+              </svg>
+            </div>
+            <h4 data-i18n="cap_2_title">Cross-Modal Video Reasoning</h4>
+            <p data-i18n="cap_2_desc">Connects visual and acoustic clues across scenes and timestamps to answer complex causal and narrative questions.</p>
+          </div>
+
+          <div class="cap-item">
+            <div class="cap-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18V5l12-2v13"></path>
+                <circle cx="6" cy="18" r="3"></circle>
+                <circle cx="18" cy="16" r="3"></circle>
+              </svg>
+            </div>
+            <h4 data-i18n="cap_3_title">Audio, Speech & Music</h4>
+            <p data-i18n="cap_3_desc">Handles speech recognition, general acoustic event analysis, voice interaction, and music understanding natively.</p>
+          </div>
+
+          <div class="cap-item">
+            <div class="cap-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                <polyline points="21 15 16 10 5 21"></polyline>
+              </svg>
+            </div>
+            <h4 data-i18n="cap_4_title">Image & Text Understanding</h4>
+            <p data-i18n="cap_4_desc">Preserves strong vision-language, document OCR, spatial perception, and general reasoning capabilities.</p>
+          </div>
+        </div>
+
+        <div class="figure-frame reveal">
+          <div class="figure-sheet" data-zoom-src="assets/wemm-video-capabilities-compact.png" data-zoom-alt="WeMM-Video Capabilities">
+            <img src="assets/wemm-video-capabilities-compact.png" alt="WeMM-Video Capabilities Overview" />
+            <span class="zoom-hint" data-i18n="click_enlarge">Click to enlarge</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 2: ARCHITECTURE
+         ==================================================================== -->
+    <section class="section-band alt" id="architecture">
+      <div class="container">
+        <div class="editorial-header reveal">
+          <span class="eyebrow" data-i18n="arch_eyebrow">Architecture</span>
+          <h2 class="section-title" data-i18n="arch_title">One unified omni-modal model.</h2>
+          <p class="section-desc" data-i18n="arch_desc">
+            WeMM-Video processes text, images, audio, and video within a single autoregressive architecture, aligning visual frames and continuous acoustic signals chronologically with explicit timestamps.
+          </p>
+        </div>
+
+        <div class="figure-frame reveal">
+          <div class="figure-sheet" data-zoom-src="assets/wemm-video-architecture.png" data-zoom-alt="WeMM-Video Architecture">
+            <img src="assets/wemm-video-architecture.png" alt="WeMM-Video Model Architecture" />
+            <span class="zoom-hint" data-i18n="click_enlarge">Click to enlarge</span>
+          </div>
+          <div class="figure-meta" style="justify-content: flex-end;">
+            <a href="assets/wemm-video-architecture.pdf" target="_blank" rel="noopener" data-i18n="arch_pdf">Download PDF ↗</a>
+          </div>
+        </div>
+
+        <div class="arch-points reveal">
+          <div class="arch-point">
+            <h4 data-i18n="arch_p1_title">Vision Backbone</h4>
+            <p data-i18n="arch_p1_desc">Built on Qwen3.5 (2B / 4B / 9B) and Qwen3.6 (35B-A3B), retaining their native visual encoders and projectors for strong image and video perception.</p>
+          </div>
+          <div class="arch-point">
+            <h4 data-i18n="arch_p2_title">Audio Encoder & Alignment</h4>
+            <p data-i18n="arch_p2_desc">Integrates a Whisper-based audio encoder with a window-level Q-Former to convert continuous soundtracks into compact audio tokens.</p>
+          </div>
+          <div class="arch-point">
+            <h4 data-i18n="arch_p3_title">Chronological Interleaving</h4>
+            <p data-i18n="arch_p3_desc">Interleaves video frames and audio tokens in time order with textual timestamps, allowing the LLM to reason natively over synchronized sight and sound.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 3: TRAINING DATA (Two Paper Figures)
+         ==================================================================== -->
+    <section class="section-band" id="data">
+      <div class="container">
+        <div class="editorial-header reveal">
+          <span class="eyebrow" data-i18n="data_eyebrow">Training Data</span>
+          <h2 class="section-title" data-i18n="data_title">
+            Built on a diverse, audio-visual-first multimodal corpus.
+          </h2>
+          <p class="section-desc" data-i18n="data_desc">
+            To learn real-world audio-visual dynamics from the ground up, we curated a 1.2T-token multimodal training corpus where joint audio-visual data makes up the largest modality share, complemented by broad task coverage.
+          </p>
+        </div>
+
+        <div class="data-figures reveal">
+          <div class="data-fig-card">
+            <div class="figure-sheet" data-zoom-src="assets/wemm-tokens.png" data-zoom-alt="Token Distribution by Modality">
+              <img src="assets/wemm-tokens.png" alt="1.2T Training Tokens by Modality" />
+              <span class="zoom-hint" data-i18n="click_enlarge">Click to enlarge</span>
+            </div>
+            <div class="figure-meta">
+              <span data-i18n="data_fig1_caption">Token distribution across modalities (Audio-Visual 45.4%, Visual 28.4%, Audio 23.6%, Text 2.6%).</span>
+            </div>
+          </div>
+
+          <div class="data-fig-card">
+            <div class="figure-sheet" data-zoom-src="assets/wemm-task.png" data-zoom-alt="Token Distribution by Task">
+              <img src="assets/wemm-task.png" alt="Token Share by Task" />
+              <span class="zoom-hint" data-i18n="click_enlarge">Click to enlarge</span>
+            </div>
+            <div class="figure-meta">
+              <span data-i18n="data_fig2_caption">Token share across multimodal tasks, led by Captioning and Knowledge & Reasoning QA.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="data-notes reveal">
+          <div class="data-note-item">
+            <h4 data-i18n="data_n1_title">Dual-Track Video Captioning</h4>
+            <p data-i18n="data_n1_desc">Pairs action-dense silent video splits (sports, gaming, dance) with native audio-visual videos (films, short dramas, interviews, live commerce) annotated along a continuous timeline.</p>
+          </div>
+          <div class="data-note-item">
+            <h4 data-i18n="data_n2_title">Dedicated Audio & Cross-Media Splits</h4>
+            <p data-i18n="data_n2_desc">Incorporates large-scale ASR, music, and acoustic understanding alongside multi-source tasks such as video comparison, video-music matching, and product-to-ad consistency.</p>
+          </div>
+          <div class="data-note-item">
+            <h4 data-i18n="data_n3_title">Progressive Pre-Training & Post-Training</h4>
+            <p data-i18n="data_n3_desc">Trained via three-stage progressive pre-training (acoustic alignment, omni-modal injection, long-context scaling) followed by Multi-Teacher OPD, Anti-Repetition MrDPO, and Specialist RL.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 4: COMPLETE PAPER EVALUATION (All 5 Sections · 123 Benchmarks)
+         ==================================================================== -->
+    <section class="section-band alt" id="benchmarks">
+      <div class="container">
+        <div class="editorial-header reveal">
+          <span class="eyebrow" data-i18n="bench_eyebrow">Evaluation · 123 Benchmarks</span>
+          <h2 class="section-title" data-i18n="bench_title">
+            Complete paper evaluation across all 5 modalities.
+          </h2>
+          <p class="section-desc" data-i18n="bench_desc">
+            WeMM-Video-35B-A3B sets a new open-source state of the art in omni-modal video understanding and leads general audio benchmarks, while preserving strong silent video, image, and text capabilities.
+          </p>
+        </div>
+
+        <!-- Performance at a Glance -->
+        <div class="glance-block reveal">
+          <div class="subblock-header">
+            <h3 data-i18n="glance_title">Performance at a Glance</h3>
+          </div>
+
+          <div class="glance-stack">
+            <div class="figure-frame">
+              <div class="figure-label-tag" data-i18n="glance_video_tag">Omni-Modal Video</div>
+              <div class="figure-sheet" data-zoom-src="assets/wemm-video-benchmarks.png" data-zoom-alt="Omni-Modal Video Benchmarks">
+                <img src="assets/wemm-video-benchmarks.png" alt="WeMM-Video Omni-Modal Video Benchmarks" />
+                <span class="zoom-hint" data-i18n="click_enlarge">Click to enlarge</span>
+              </div>
+            </div>
+
+            <div class="figure-frame">
+              <div class="figure-label-tag" data-i18n="glance_audio_tag">Audio & Voice</div>
+              <div class="figure-sheet" data-zoom-src="assets/wemm_index_audio.png" data-zoom-alt="Audio Understanding Benchmarks">
+                <img src="assets/wemm_index_audio.png" alt="WeMM-Video Audio Benchmarks" />
+                <span class="zoom-hint" data-i18n="click_enlarge">Click to enlarge</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Benchmark Explorer -->
+        <div class="subblock-header reveal">
+          <h3 data-i18n="explorer_title">Benchmark Explorer</h3>
+        </div>
+
+        <div class="arena-shell reveal" id="eval-explorer-root">
+          <div class="arena-top-bar">
+            <div class="section-tabs" id="eval-section-tabs"></div>
+            <div class="view-mode-switch" id="eval-view-switch"></div>
+          </div>
+
+          <div class="arena-summary-row" id="eval-scale-row">
+            <div class="scale-filter-bar" id="eval-scale-bar"></div>
+          </div>
+
+          <!-- Pane A: Interactive Visual Comparison -->
+          <div id="eval-visual-pane">
+            <div class="dimension-pills" id="eval-dim-pills"></div>
+            <div class="bench-chips" id="eval-bench-chips"></div>
+
+            <div class="arena-meta-bar">
+              <div class="arena-legend">
+                <span class="legend-item"><span class="legend-dot ours"></span><span data-i18n="legend_ours">WeMM-Video (Ours)</span></span>
+                <span class="legend-item"><span class="legend-dot closed"></span><span data-i18n="legend_closed">Proprietary</span></span>
+                <span class="legend-item"><span class="legend-dot open"></span><span data-i18n="legend_open">Open-Source</span></span>
+              </div>
+              <span class="metric-badge" id="eval-metric-note" style="display:none;"></span>
+            </div>
+
+            <div class="arena-bars" id="eval-bars-stage"></div>
+          </div>
+
+          <!-- Pane B: Complete Paper Tables -->
+          <div id="eval-table-pane" style="display:none;">
+            <div class="paper-table-controls">
+              <div class="table-group-tabs" id="eval-table-groups"></div>
+              <input
+                type="search"
+                class="table-search-input"
+                id="eval-table-search"
+                data-i18n-placeholder="search_bench"
+                placeholder="Filter benchmarks..."
+              />
+            </div>
+            <div class="paper-table-wrap" id="eval-table-container"></div>
+            <div class="paper-table-footnotes" id="eval-table-footnotes"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 5: OPEN-SOURCE MODELS
+         ==================================================================== -->
+    <section class="section-band" id="models">
+      <div class="container">
+        <div class="editorial-header reveal">
+          <span class="eyebrow" data-i18n="models_eyebrow">Open-Source Release</span>
+          <h2 class="section-title" data-i18n="models_title">Four model scales. Ready to deploy.</h2>
+          <p class="section-desc" data-i18n="models_desc">
+            All weights, inference code, and evaluation recipes are open-sourced on GitHub and Hugging Face.
+          </p>
+        </div>
+
+        <div class="models-table-wrap reveal">
+          <table class="models-table">
+            <thead>
+              <tr>
+                <th data-i18n="col_model">Model</th>
+                <th data-i18n="col_base">Backbone</th>
+                <th data-i18n="col_active">Parameters</th>
+                <th data-i18n="col_scenario">Recommended Use</th>
+                <th data-i18n="col_link">Weights</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="model-name-cell">
+                  WeMM-Video-35B-A3B
+                  <span class="badge-flagship" data-i18n="badge_flagship">Flagship</span>
+                </td>
+                <td>Qwen3.6-35B-A3B</td>
+                <td>35B (3B active MoE)</td>
+                <td data-i18n="m_35b_use">Flagship MoE · SOTA omni-modal reasoning</td>
+                <td><a class="hf-btn" href="https://huggingface.co/tencent/WeMM-Video-35BA3B" target="_blank" rel="noopener">Hugging Face ↗</a></td>
+              </tr>
+              <tr>
+                <td class="model-name-cell">WeMM-Video-9B</td>
+                <td>Qwen3.5-9B</td>
+                <td>9B Dense</td>
+                <td data-i18n="m_9b_use">High-accuracy single-GPU deployment</td>
+                <td><a class="hf-btn" href="https://huggingface.co/tencent/WeMM-Video-9B" target="_blank" rel="noopener">Hugging Face ↗</a></td>
+              </tr>
+              <tr>
+                <td class="model-name-cell">WeMM-Video-4B</td>
+                <td>Qwen3.5-4B</td>
+                <td>4B Dense</td>
+                <td data-i18n="m_4b_use">Compact edge & mobile multimodal inference</td>
+                <td><a class="hf-btn" href="https://huggingface.co/tencent/WeMM-Video-4B" target="_blank" rel="noopener">Hugging Face ↗</a></td>
+              </tr>
+              <tr>
+                <td class="model-name-cell">WeMM-Video-2B</td>
+                <td>Qwen3.5-2B</td>
+                <td>2B Dense</td>
+                <td data-i18n="m_2b_use">Ultra-lightweight on-device audio-visual model</td>
+                <td><a class="hf-btn" href="https://huggingface.co/tencent/WeMM-Video-2B" target="_blank" rel="noopener">Hugging Face ↗</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 6: DEMO PORTAL + CITATION
+         ==================================================================== -->
+    <section class="section-band alt">
+      <div class="container">
+        <div class="demo-portal reveal">
+          <span class="eyebrow" data-i18n="portal_eyebrow">Screening Room</span>
+          <h2 data-i18n="portal_title">Watch WeMM-Video in action.</h2>
+          <p data-i18n="portal_desc">
+            Explore real-world video demonstrations showcasing audio-visual reasoning, speaker attribution, and music & acoustic perception.
+          </p>
+          <a class="btn btn-emerald" href="demos.html" data-i18n="portal_cta">Open Demo Gallery →</a>
+        </div>
+
+        <div id="citation" style="margin-top: 84px;" class="reveal">
+          <div class="editorial-header" style="margin-bottom: 24px;">
+            <span class="eyebrow" data-i18n="cite_eyebrow">Citation</span>
+            <h2 class="section-title" data-i18n="cite_title">Cite our work</h2>
+          </div>
+
+          <div class="bibtex-box">
+            <button type="button" class="copy-btn" id="copy-bibtex-btn" data-i18n="copy_btn">Copy BibTeX</button>
+            <pre><code id="bibtex-code">@misc{WeMM-Video,
+      title={WeMM-Video: Pushing the Frontiers of Open-Source Omni-Modal Video Understanding}, 
+      author={Changli Tang and Jie Yang and Tianyi Wang and Lei Li and Daoze Zhang and Zijie Xin and Zhan Liu and Li Li and Jinchang Xu and Fengyun Rao and Chao Zhang and Jing Lyu},
+      year={2026},
+      eprint={2611.26409},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2611.26409}, 
+}</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div data-i18n="footer_left">WeMM-Video · WeChat Vision, Tencent Inc. & Tsinghua University · Apache-2.0</div>
+        <div class="footer-links">
+          <a href="https://arxiv.org/abs/2611.26409" target="_blank" rel="noopener" data-i18n="cta_paper">Paper</a>
+          <a href="https://github.com/Tencent/WeMM-Video" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://huggingface.co/collections/tencent/wemm-video" target="_blank" rel="noopener">Hugging Face</a>
+          <a href="demos.html" data-i18n="nav_demos">Demos</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image Preview">
+    <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Close">×</button>
+    <img id="lightbox-img" src="" alt="" />
+  </div>
+
+  <script src="js/hero-canvas.js"></script>
+  <script src="js/benchmarks-data.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
