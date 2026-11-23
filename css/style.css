@@ -1,3 +1,19 @@
+@font-face {
+  font-family: "Anthropic Serif";
+  src: url("../assets/fonts/anthropic-serif-roman.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Anthropic Serif";
+  src: url("../assets/fonts/anthropic-serif-italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 300 800;
+  font-display: swap;
+}
+
 /* WeMM-Video light theme with a mint wave background. */
 :root {
   color-scheme: light;
@@ -19,9 +35,9 @@
   --hero-title: #059a4b;
   --shadow: 0 12px 36px -18px rgba(14, 26, 20, 0.18);
 
-  --font-display: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-display: "Anthropic Serif", "Songti SC", "SimSun", serif;
+  --font-sans: "Anthropic Serif", "Songti SC", "SimSun", serif;
+  --font-mono: "Anthropic Serif", "Songti SC", "SimSun", serif;
 
   --max-w: 1180px;
   --radius-sm: 10px;
@@ -41,10 +57,14 @@ html {
   background: var(--bg-base);
 }
 
+button, input, select, textarea {
+  font-family: inherit;
+}
+
 body {
   margin: 0;
   font-family: var(--font-sans);
-  font-size: 15.5px;
+  font-size: 17.5px;
   line-height: 1.72;
   color: var(--ink);
   background: var(--bg-base);
@@ -102,7 +122,7 @@ a:hover {
   left: 0;
   right: 0;
   z-index: 100;
-  height: 64px;
+  height: 50px;
   display: flex;
   align-items: center;
   background: rgba(255, 255, 255, 0.90);
@@ -131,8 +151,8 @@ a:hover {
   align-items: center;
   gap: 10px;
   font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 16.5px;
+  font-weight: 400;
+  font-size: 17.5px;
   letter-spacing: -0.02em;
   color: var(--ink);
 }
@@ -160,7 +180,7 @@ a:hover {
 
 .nav-links a {
   position: relative;
-  font-size: 13.5px;
+  font-size: 14.5px;
   font-weight: 500;
   color: var(--ink-secondary);
   padding: 4px 0;
@@ -195,27 +215,28 @@ a:hover {
 .lang-switch {
   display: inline-flex;
   align-items: center;
-  background: var(--surface-soft);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-pill);
-  padding: 2px;
+  gap: 10px;
+}
+
+.lang-divider {
+  color: #aaaaaa;
+  font-size: 17px;
+  font-weight: 400;
 }
 
 .lang-btn {
   border: 0;
   background: transparent;
-  padding: 4px 11px;
-  font-size: 12px;
+  padding: 4px 0;
+  font-size: 15px;
   font-weight: 600;
-  color: var(--ink-muted);
-  border-radius: var(--radius-pill);
+  color: #666666;
   cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition: color 0.15s ease;
 }
 
 .lang-btn.active {
-  background: var(--emerald);
-  color: var(--bg-base);
+  color: var(--emerald);
 }
 
 .mobile-menu-btn {
@@ -248,47 +269,74 @@ a:hover {
 }
 
 .hero-org {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 24px;
+  margin: 0 auto 24px;
+  font-size: 17px;
   font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--emerald);
-  margin-bottom: 18px;
+  line-height: 1.35;
+  color: #444444;
 }
 
 .hero-title {
   margin: 0 0 18px;
   font-family: var(--font-display);
-  font-size: clamp(50px, 7.6vw, 88px);
-  font-weight: 800;
+  font-size: clamp(38px, calc(7.6vw - 12px), 76px);
+  font-weight: 400;
   line-height: 1.02;
   letter-spacing: -0.04em;
   color: var(--hero-title);
 }
 
-.hero-tagline {
-  margin: 0 auto 20px;
+.hero-paper-title {
+  margin: 0 auto 26px;
   max-width: 920px;
   font-family: var(--font-display);
-  font-size: clamp(19px, 2.25vw, 26px);
+  font-size: clamp(16px, calc(3.2vw - 8px), 30px);
   font-weight: 600;
-  line-height: 1.38;
-  letter-spacing: -0.015em;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
   color: var(--ink);
   text-wrap: balance;
 }
 
+.hero-authors {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 20px;
+  max-width: 880px;
+  margin: 0 auto 8px;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.hero-authors span {
+  white-space: nowrap;
+}
+
+.hero-author-break {
+  flex-basis: 100%;
+  height: 0;
+}
+
+.hero-authors sup,
+.hero-org sup {
+  color: var(--emerald);
+  font-size: 0.7em;
+}
+
 .hero-sub {
-  margin: 0 auto 36px;
-  max-width: 740px;
-  font-size: 16px;
-  line-height: 1.72;
-  color: var(--ink-secondary);
-  text-wrap: pretty;
+  margin: 0 auto 32px;
+  max-width: 880px;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.6;
+  color: var(--emerald-deep);
+  text-wrap: balance;
 }
 
 .hero-cta-row {
@@ -348,6 +396,16 @@ a:hover {
   color: var(--bg-base);
 }
 
+.hero-cta-row .btn {
+  font-size: 16px;
+}
+
+.hero-cta-row .btn:hover {
+  background: var(--line-accent);
+  border-color: var(--line-accent);
+  color: var(--emerald-deep);
+}
+
 .scroll-cue {
   position: absolute;
   bottom: 24px;
@@ -360,7 +418,7 @@ a:hover {
   font-family: var(--font-mono);
   font-size: 10.5px;
   letter-spacing: 0.18em;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--ink-muted);
 }
 
@@ -399,7 +457,7 @@ a:hover {
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.14em;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--emerald);
   margin-bottom: 12px;
 }
@@ -417,7 +475,7 @@ a:hover {
 
 .section-desc {
   margin: 0;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.75;
   color: var(--ink-secondary);
   text-wrap: pretty;
@@ -450,7 +508,7 @@ a:hover {
 
 .story-block p {
   margin: 0;
-  font-size: 14.5px;
+  font-size: 16.5px;
   line-height: 1.74;
   color: var(--ink-secondary);
 }
@@ -499,7 +557,7 @@ a:hover {
 
 .cap-item p {
   margin: 0;
-  font-size: 13.5px;
+  font-size: 15.5px;
   line-height: 1.66;
   color: var(--ink-muted);
 }
@@ -507,18 +565,10 @@ a:hover {
 /* ---------- Studio Exhibition Frames (Paper Figures) ---------- */
 .figure-frame {
   position: relative;
-  border-radius: var(--radius-lg);
-  background: var(--surface-strong);
-  border: 1px solid var(--border-strong);
-  padding: 18px;
-  box-shadow: var(--shadow);
 }
 
 .figure-sheet {
   position: relative;
-  background: var(--surface);
-  border-radius: 14px;
-  padding: 18px;
   overflow: hidden;
   cursor: zoom-in;
 }
@@ -554,7 +604,7 @@ a:hover {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 10px;
-  font-size: 13.5px;
+  font-size: 15.5px;
   color: var(--ink-muted);
 }
 
@@ -584,7 +634,7 @@ a:hover {
 
 .arch-point p {
   margin: 0;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.68;
   color: var(--ink-secondary);
 }
@@ -599,14 +649,14 @@ a:hover {
 }
 
 .data-fig-card {
-  background: var(--surface-strong);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-lg);
-  padding: 18px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: var(--shadow);
+}
+
+.data-fig-card .figure-meta {
+  justify-content: center;
+  text-align: center;
 }
 
 .data-fig-card .figure-sheet {
@@ -614,7 +664,7 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 22px;
+  padding: 0;
 }
 
 .data-fig-card .figure-sheet img {
@@ -648,7 +698,7 @@ a:hover {
 
 .data-note-item p {
   margin: 0;
-  font-size: 13.5px;
+  font-size: 15.5px;
   line-height: 1.68;
   color: var(--ink-muted);
 }
@@ -757,7 +807,7 @@ a:hover {
 
 .arena-section-desc {
   margin: 0;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.68;
   color: var(--ink-secondary);
   max-width: 740px;
@@ -898,9 +948,9 @@ a:hover {
   border-radius: 50%;
 }
 
-.legend-dot.ours { background: var(--emerald); }
-.legend-dot.closed { background: #596860; }
-.legend-dot.open { background: #567790; }
+.legend-dot.ours { background: #08b85a; }
+.legend-dot.closed { background: #888888; }
+.legend-dot.open { background: #368fe0; }
 
 .metric-badge {
   display: inline-flex;
@@ -969,7 +1019,7 @@ a:hover {
   font-size: 9.5px;
   font-weight: 700;
   letter-spacing: 0.04em;
-  text-transform: uppercase;
+  text-transform: none;
   padding: 2px 6px;
   border-radius: 5px;
 }
@@ -1000,7 +1050,8 @@ a:hover {
 .bar-fill {
   height: 100%;
   border-radius: 7px;
-  transition: width 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: left center;
+  animation: benchmark-bar-grow 0.5s ease-out;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -1011,22 +1062,71 @@ a:hover {
   font-weight: 700;
 }
 
+@keyframes benchmark-bar-grow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
 .bar-fill.ours {
-  background: linear-gradient(90deg, #096437, #0b7d45);
+  background: linear-gradient(90deg, #08b85a, #16ce6b);
 }
 
 .bar-fill.ours-sub {
-  background: linear-gradient(90deg, #35674c, #457553);
+  background: linear-gradient(90deg, #29c66b, #51dc82);
 }
 
 .bar-fill.closed {
-  background: #596860;
+  background: #888888;
   color: var(--bg-base);
 }
 
 .bar-fill.open {
-  background: #567790;
+  background: #368fe0;
   color: var(--bg-base);
+}
+
+.bar-fill[data-model^="Seed" i] {
+  background: #368fe0;
+}
+
+.bar-fill[data-model^="MiniCPM" i] {
+  background: #83c7f5;
+}
+
+.bar-fill[data-model^="WeMM-Video-35B"] {
+  background: #009c49;
+}
+
+.bar-fill[data-model^="WeMM-Video-35B"][data-model*="Instruct"] {
+  background: #00856a;
+}
+
+.bar-fill[data-model^="WeMM-Video-9B"] {
+  background: #30c94b;
+}
+
+.bar-fill[data-model^="WeMM-Video-4B"] {
+  background: #85d637;
+}
+
+.bar-fill[data-model^="WeMM-Video-2B"] {
+  background: #82e5ad;
+}
+
+.bar-fill[data-model^="Qwen3.5-Omni" i] {
+  background: #7340bb;
+}
+
+.bar-fill[data-model^="Qwen3-Omni" i] {
+  background: #b59aeb;
+}
+
+.bar-fill[data-model^="Qwen3.6" i] {
+  background: #915bd3;
+}
+
+.bar-fill[data-model^="Qwen3.5-9B" i] {
+  background: #cdb8f4;
 }
 
 .bar-score {
@@ -1108,7 +1208,7 @@ a:hover {
 .paper-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 13px;
+  font-size: 15px;
   min-width: 760px;
 }
 
@@ -1167,7 +1267,7 @@ a:hover {
   font-size: 11.5px;
   font-weight: 700;
   letter-spacing: 0.06em;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--emerald-deep);
   background: var(--emerald-soft);
   padding: 8px 14px;
@@ -1195,8 +1295,9 @@ a:hover {
 }
 
 .paper-table-footnotes {
+  white-space: pre-line;
   margin-top: 14px;
-  font-size: 12.5px;
+  font-size: 14.5px;
   line-height: 1.65;
   color: var(--ink-muted);
 }
@@ -1226,7 +1327,7 @@ a:hover {
 
 .subblock-header p {
   margin: 0;
-  font-size: 14px;
+  font-size: 16px;
   color: var(--ink-muted);
 }
 
@@ -1245,7 +1346,7 @@ a:hover {
   font-size: 11.5px;
   font-weight: 600;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--emerald);
 }
 
@@ -1261,7 +1362,7 @@ a:hover {
 .models-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 14px;
+  font-size: 16px;
   min-width: 860px;
 }
 
@@ -1278,7 +1379,7 @@ a:hover {
   font-size: 11.5px;
   font-weight: 600;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--ink-muted);
   background: var(--surface-soft);
   white-space: nowrap;
@@ -1363,7 +1464,7 @@ a:hover {
 .demo-portal p {
   margin: 0 auto 28px;
   max-width: 580px;
-  font-size: 15.5px;
+  font-size: 17.5px;
   color: var(--ink-secondary);
 }
 
@@ -1381,7 +1482,7 @@ a:hover {
   margin: 0;
   padding-right: 112px;
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.72;
   color: var(--ink-secondary);
   white-space: pre-wrap;
@@ -1410,7 +1511,7 @@ a:hover {
   padding: 40px 0 52px;
   background: var(--surface);
   border-top: 1px solid var(--border);
-  font-size: 13.5px;
+  font-size: 15.5px;
   color: var(--ink-muted);
 }
 
@@ -1448,15 +1549,13 @@ a:hover {
 }
 
 .lightbox.open {
+  cursor: zoom-out;
   display: flex;
 }
 
 .lightbox img {
   max-width: 94vw;
   max-height: 88vh;
-  border-radius: 14px;
-  background: var(--surface);
-  padding: 12px;
 }
 
 .lightbox-close {
@@ -1551,7 +1650,7 @@ a:hover {
 }
 
 .demo-track-hint {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--ink-muted);
 }
 
@@ -1663,7 +1762,7 @@ a:hover {
 }
 
 .demo-placeholder-sub {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--ink-muted);
 }
 
@@ -1702,13 +1801,13 @@ a:hover {
   font-size: 10.5px;
   font-weight: 700;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--ink-muted);
   margin-bottom: 5px;
 }
 
 .demo-prompt-text {
-  font-size: 13.5px;
+  font-size: 15.5px;
   color: var(--ink);
 }
 
@@ -1741,7 +1840,7 @@ a:hover {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.06em;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--ink-muted);
   background: var(--surface-soft);
   border: 1px solid var(--border-strong);
@@ -1777,7 +1876,7 @@ a:hover {
 }
 
 .demo-thinking-content {
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.68;
   color: var(--ink-muted);
 }
@@ -1798,7 +1897,7 @@ a:hover {
   font-size: 10.5px;
   font-weight: 700;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--emerald-deep);
   margin-bottom: 10px;
 }
@@ -1832,12 +1931,12 @@ a:hover {
 
 /* Rich Markdown Typography inside Prompt, Thinking, and Answer */
 .md-body {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.72;
 }
 
 .demo-thinking-content.md-body {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--ink-muted);
 }
 
@@ -1886,7 +1985,7 @@ a:hover {
 
 .md-body code {
   font-family: var(--font-mono);
-  font-size: 12.5px;
+  font-size: 14.5px;
   padding: 1px 6px;
   border-radius: 5px;
   background: var(--surface-soft);
@@ -1910,7 +2009,7 @@ a:hover {
   padding: 0;
   background: transparent;
   color: var(--ink-secondary);
-  font-size: 12.5px;
+  font-size: 14.5px;
 }
 
 .md-heading {
@@ -1929,7 +2028,7 @@ a:hover {
 .md-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 12.5px;
+  font-size: 14.5px;
 }
 
 .md-table th,

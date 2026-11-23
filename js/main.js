@@ -376,7 +376,7 @@
               <span class="model-tag ${tagClass}">${tagLabel}</span>
             </div>
             <div class="bar-track">
-              <div class="bar-fill ${r.group}" style="width: ${pct}%"></div>
+              <div class="bar-fill ${r.group}" data-model="${r.name}" style="width: ${pct}%"></div>
             </div>
             <div class="bar-score ${isOurs ? "ours" : ""}">
               ${r.score.toFixed(decimals)}
@@ -551,9 +551,7 @@
 
     const close = () => lightbox.classList.remove("open");
     if (closeBtn) closeBtn.addEventListener("click", close);
-    lightbox.addEventListener("click", (e) => {
-      if (e.target === lightbox) close();
-    });
+    lightbox.addEventListener("click", close);
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") close();
     });
@@ -738,7 +736,7 @@
             </div>`
           : "";
 
-        const modeBadgeHtml = `<span class="demo-tag">${resolvedMode === "zh" ? "ZH" : "EN"}</span>`;
+        const modeBadgeHtml = `<span class="demo-tag">${resolvedMode === "zh" ? "中文" : "English"}</span>`;
 
         const durationHtml =
           demo.duration && demo.duration !== "00:00"
@@ -792,7 +790,7 @@
     // Automatically show clean slot placeholder if video.mp4 is not uploaded yet
     container.querySelectorAll("video[data-fallback-id]").forEach((videoEl) => {
       const id = videoEl.getAttribute("data-fallback-id");
-      const idxLabel = videoEl.getAttribute("data-idx-label") || "DEMO";
+      const idxLabel = videoEl.getAttribute("data-idx-label") || "Demo";
       const demo = loadedDemos.find((d) => d.id === id);
       if (!demo) return;
       videoEl.addEventListener("error", () => {

@@ -50,8 +50,8 @@ window.WEMM_EVAL_DATA = {
         }
       ],
       footnotes: {
-        en: "Notes: AVHBench & SVHalluc report sample-wise accuracy. HarmonySet is judged by GPT-4o (0–10 scale). ODU-Bench reports AV | AO. SocialOmni reports Who | When | How (QGold). video-SALMONN 2 testset reports total error rate (lower is better ↓). DVD-Bench (En) reports speaker accuracy. OmniCap-IF reports CSR | ISR.",
-        zh: "注：AVHBench 与 SVHalluc 汇报样本级准确率；HarmonySet 为 GPT-4o 评分（0–10 制）；ODU-Bench 汇报 AV | AO；SocialOmni 汇报 Who | When | How (QGold)；video-SALMONN 2 测试集汇报总错误率（越低越好 ↓）；DVD-Bench (En) 汇报说话人准确率；OmniCap-IF 汇报 CSR | ISR。"
+        en: "Notes: AVHBench & SVHalluc report sample-wise accuracy.\nHarmonySet is judged by GPT-4o (0–10 scale).\nODU-Bench reports AV | AO.\nSocialOmni reports Who | When | How (QGold).\nvideo-SALMONN 2 testset reports total error rate (lower is better ↓).\nDVD-Bench (En) reports speaker accuracy.\nOmniCap-IF reports CSR | ISR.",
+        zh: "注：AVHBench 与 SVHalluc 汇报样本级准确率；\nHarmonySet 为 GPT-4o 评分（0–10 制）；\nODU-Bench 汇报 AV | AO；\nSocialOmni 汇报 Who | When | How (QGold)；\nvideo-SALMONN 2 测试集汇报总错误率（越低越好 ↓）；\nDVD-Bench (En) 汇报说话人准确率；\nOmniCap-IF 汇报 CSR | ISR。"
       },
       dimensions: [
         {
@@ -305,8 +305,8 @@ window.WEMM_EVAL_DATA = {
         }
       ],
       footnotes: {
-        en: "Notes: Video-IFBench reports TCSR | TISR. VidHalluc reports average across BQA, MCQ, TSH, STH. MMBench-Video is on a 0–3 scale. TemporalBench reports overall MBA. F-16-NBA reports accuracy. TimeLens reports mean IoU.",
-        zh: "注：Video-IFBench 汇报 TCSR | TISR；VidHalluc 为四项子任务均分；MMBench-Video 为 0–3 分制；TemporalBench 汇报总体 MBA；F-16-NBA 汇报准确率；TimeLens 汇报平均 IoU。"
+        en: "Notes: Video-IFBench reports TCSR | TISR.\nVidHalluc reports average across BQA, MCQ, TSH, STH.\nMMBench-Video is on a 0–3 scale.\nTemporalBench reports overall MBA.\nF-16-NBA reports accuracy.\nTimeLens reports mean IoU.",
+        zh: "注：Video-IFBench 汇报 TCSR | TISR；\nVidHalluc 为四项子任务均分；\nMMBench-Video 为 0–3 分制；\nTemporalBench 汇报总体 MBA；\nF-16-NBA 汇报准确率；\nTimeLens 汇报平均 IoU。"
       },
       dimensions: [
         {
@@ -422,8 +422,8 @@ window.WEMM_EVAL_DATA = {
         }
       ],
       footnotes: {
-        en: "Notes: GigaSpeech, VoxPopuli, and LibriSpeech (test-clean | test-other) report WER (lower is better ↓). WenetSpeech (net | meeting), MIR-1K, and Opencpop report CER (lower is better ↓). Audio MultiChallenge reports average pass rate.",
-        zh: "注：GigaSpeech、VoxPopuli 与 LibriSpeech（test-clean | test-other）汇报 WER（越低越好 ↓）；WenetSpeech（net | meeting）、MIR-1K 与 Opencpop 汇报 CER（越低越好 ↓）；Audio MultiChallenge 汇报平均通过率。"
+        en: "Notes: GigaSpeech, VoxPopuli, and LibriSpeech (test-clean | test-other) report WER (lower is better ↓).\nWenetSpeech (net | meeting), MIR-1K, and Opencpop report CER (lower is better ↓).\nAudio MultiChallenge reports average pass rate.",
+        zh: "注：GigaSpeech、VoxPopuli 与 LibriSpeech（test-clean | test-other）汇报 WER（越低越好 ↓）；\nWenetSpeech（net | meeting）、MIR-1K 与 Opencpop 汇报 CER（越低越好 ↓）；\nAudio MultiChallenge 汇报平均通过率。"
       },
       dimensions: [
         {

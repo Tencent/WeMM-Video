@@ -5,10 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>WeMM-Video — Omni-Modal Video Understanding Foundation Model</title>
   <meta name="description" content="WeMM-Video: Pushing the Frontiers of Open-Source Omni-Modal Video Understanding by WeChat Vision, Tencent Inc. & Tsinghua University." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b7d45'/%3E%3Cpath d='M10 11v10M16 8v16M22 12v8' stroke='%23ffffff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
+  <link rel="icon" type="image/png" href="assets/wechat.png" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -20,12 +17,7 @@
     <header class="site-nav" id="site-nav">
       <div class="nav-inner">
         <a href="index.html" class="nav-brand">
-          <span class="nav-brand-mark" aria-hidden="true">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="4" width="20" height="16" rx="3"></rect>
-              <path d="M8 9v6M12 7v10M16 10v4"></path>
-            </svg>
-          </span>
+          <img src="assets/wechat.png" alt="" width="28" height="28" style="object-fit: contain;" />
           <span>WeMM-Video</span>
         </a>
 
@@ -33,7 +25,7 @@
           <a href="#capabilities" data-i18n="nav_cap">Capabilities</a>
           <a href="#architecture" data-i18n="nav_arch">Architecture</a>
           <a href="#data" data-i18n="nav_data">Data</a>
-          <a href="#benchmarks" data-i18n="nav_bench">Benchmarks</a>
+          <a href="#benchmarks" data-i18n="nav_bench">Evaluation</a>
           <a href="#models" data-i18n="nav_models">Models</a>
           <a href="demos.html" data-i18n="nav_demos">Demos</a>
         </nav>
@@ -41,6 +33,7 @@
         <div class="nav-actions">
           <div class="lang-switch" role="group" aria-label="Language">
             <button type="button" class="lang-btn active" data-lang="en">EN</button>
+            <span class="lang-divider" aria-hidden="true">/</span>
             <button type="button" class="lang-btn" data-lang="zh">中文</button>
           </div>
           <button type="button" class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle Menu">
@@ -60,21 +53,29 @@
     <section class="hero-cinema" id="top">
       <div class="container">
         <div class="hero-inner">
-          <div class="hero-org" data-i18n="hero_org">WeChat Vision, Tencent · Tsinghua University</div>
           <h1 class="hero-title">WeMM-Video</h1>
-          <p class="hero-tagline" data-i18n="hero_tagline">
-            See Every Frame. Hear Every Sound. Understand Real Video.
-          </p>
-          <p class="hero-sub" data-i18n="hero_sub">
-            An open-source bilingual omni-modal foundation model family for joint audio-visual video understanding, reasoning, and general multimodal perception.
-          </p>
+          <h2 class="hero-paper-title" data-i18n="hero_paper_title">Pushing the Frontiers of Open-Source Omni-Modal Video Understanding</h2>
+          <div class="hero-authors">
+            <span>Changli Tang<sup>1,2</sup></span>
+            <span>Jie Yang<sup>1</sup></span>
+            <span>Tianyi Wang<sup>1</sup></span>
+            <span>Lei Li<sup>1</sup></span>
+            <span>Daoze Zhang<sup>1</sup></span>
+            <span>Zijie Xin<sup>1</sup></span>
+            <div class="hero-author-break" aria-hidden="true"></div>
+            <span>Zhan Liu<sup>1,2</sup></span>
+            <span>Li Li<sup>1</sup></span>
+            <span>Jinchang Xu<sup>1</sup></span>
+            <span>Fengyun Rao<sup>1</sup></span>
+            <span>Chao Zhang<sup>2</sup></span>
+            <span>Jing LYU<sup>1</sup></span>
+          </div>
+          <p class="hero-org"><span><sup>1</sup> <span data-i18n="hero_org_tencent">WeChat Vision, Tencent Inc.</span></span><span><sup>2</sup> <span data-i18n="hero_org_tsinghua">Tsinghua University</span></span></p>
+          <p class="hero-sub"><em data-i18n="hero_sub">An open-source bilingual omni-modal foundation model family for joint audio-visual video understanding and reasoning.</em></p>
 
           <div class="hero-cta-row">
             <a class="btn btn-solid" href="https://arxiv.org/abs/2611.26409" target="_blank" rel="noopener">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                <polyline points="14 2 14 8 20 8"></polyline>
-              </svg>
+              <img src="assets/arxiv.svg" alt="" width="18" height="18" />
               <span data-i18n="cta_paper">Paper</span>
             </a>
             <a class="btn" href="https://github.com/Tencent/WeMM-Video" target="_blank" rel="noopener">
@@ -84,10 +85,12 @@
               <span data-i18n="cta_github">GitHub</span>
             </a>
             <a class="btn" href="https://huggingface.co/collections/tencent/wemm-video" target="_blank" rel="noopener">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-              </svg>
+              <img src="assets/huggingface.svg" alt="" width="18" height="18" />
               <span data-i18n="cta_hf">Hugging Face</span>
+            </a>
+            <a class="btn" href="https://www.modelscope.ai/collections/WeChat-Vision/WeMM-Video" target="_blank" rel="noopener">
+              <img src="assets/modelscope.ico" alt="" width="18" height="18" />
+              <span>ModelScope</span>
             </a>
             <a class="btn btn-emerald" href="demos.html">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -98,11 +101,6 @@
           </div>
         </div>
       </div>
-
-      <div class="scroll-cue" aria-hidden="true">
-        <span data-i18n="scroll_cue">Scroll</span>
-        <span class="scroll-cue-bar"></span>
-      </div>
     </section>
 
     <!-- ====================================================================
@@ -111,10 +109,7 @@
     <section class="section-band" id="capabilities">
       <div class="container">
         <div class="editorial-header reveal">
-          <span class="eyebrow" data-i18n="cap_eyebrow">Capabilities</span>
-          <h2 class="section-title" data-i18n="cap_title">
-            Why audio-visual understanding matters — and what WeMM-Video does.
-          </h2>
+          <h2 class="section-title" data-i18n="cap_title">Capabilities</h2>
           <p class="section-desc" data-i18n="cap_desc">
             Most multimodal models still treat video as silent frames paired with speech transcripts. In real videos, meaning lives in the interplay between what is seen and what is heard.
           </p>
@@ -186,7 +181,6 @@
         <div class="figure-frame reveal">
           <div class="figure-sheet" data-zoom-src="assets/wemm-video-capabilities-compact.png" data-zoom-alt="WeMM-Video Capabilities">
             <img src="assets/wemm-video-capabilities-compact.png" alt="WeMM-Video Capabilities Overview" />
-            <span class="zoom-hint" data-i18n="click_enlarge">Click to enlarge</span>
           </div>
         </div>
       </div>
@@ -198,8 +192,7 @@
     <section class="section-band alt" id="architecture">
       <div class="container">
         <div class="editorial-header reveal">
-          <span class="eyebrow" data-i18n="arch_eyebrow">Architecture</span>
-          <h2 class="section-title" data-i18n="arch_title">One unified omni-modal model.</h2>
+          <h2 class="section-title" data-i18n="arch_title">Architecture</h2>
           <p class="section-desc" data-i18n="arch_desc">
             WeMM-Video processes text, images, audio, and video within a single autoregressive architecture, aligning visual frames and continuous acoustic signals chronologically with explicit timestamps.
           </p>
@@ -208,7 +201,6 @@
         <div class="figure-frame reveal">
           <div class="figure-sheet" data-zoom-src="assets/wemm-video-architecture.png" data-zoom-alt="WeMM-Video Architecture">
             <img src="assets/wemm-video-architecture.png" alt="WeMM-Video Model Architecture" />
-            <span class="zoom-hint" data-i18n="click_enlarge">Click to enlarge</span>
           </div>
           <div class="figure-meta" style="justify-content: flex-end;">
             <a href="assets/wemm-video-architecture.pdf" target="_blank" rel="noopener" data-i18n="arch_pdf">Download PDF ↗</a>
@@ -238,10 +230,7 @@
     <section class="section-band" id="data">
       <div class="container">
         <div class="editorial-header reveal">
-          <span class="eyebrow" data-i18n="data_eyebrow">Training Data</span>
-          <h2 class="section-title" data-i18n="data_title">
-            Built on a diverse, audio-visual-first multimodal corpus.
-          </h2>
+          <h2 class="section-title" data-i18n="data_title">Training Data</h2>
           <p class="section-desc" data-i18n="data_desc">
             To learn real-world audio-visual dynamics from the ground up, we curated a 1.2T-token multimodal training corpus where joint audio-visual data makes up the largest modality share, complemented by broad task coverage.
           </p>
@@ -251,7 +240,6 @@
           <div class="data-fig-card">
             <div class="figure-sheet" data-zoom-src="assets/wemm-tokens.png" data-zoom-alt="Token Distribution by Modality">
               <img src="assets/wemm-tokens.png" alt="1.2T Training Tokens by Modality" />
-              <span class="zoom-hint" data-i18n="click_enlarge">Click to enlarge</span>
             </div>
             <div class="figure-meta">
               <span data-i18n="data_fig1_caption">Token distribution across modalities (Audio-Visual 45.4%, Visual 28.4%, Audio 23.6%, Text 2.6%).</span>
@@ -261,7 +249,6 @@
           <div class="data-fig-card">
             <div class="figure-sheet" data-zoom-src="assets/wemm-task.png" data-zoom-alt="Token Distribution by Task">
               <img src="assets/wemm-task.png" alt="Token Share by Task" />
-              <span class="zoom-hint" data-i18n="click_enlarge">Click to enlarge</span>
             </div>
             <div class="figure-meta">
               <span data-i18n="data_fig2_caption">Token share across multimodal tasks, led by Captioning and Knowledge & Reasoning QA.</span>
@@ -292,10 +279,7 @@
     <section class="section-band alt" id="benchmarks">
       <div class="container">
         <div class="editorial-header reveal">
-          <span class="eyebrow" data-i18n="bench_eyebrow">Evaluation · 123 Benchmarks</span>
-          <h2 class="section-title" data-i18n="bench_title">
-            Complete paper evaluation across all 5 modalities.
-          </h2>
+          <h2 class="section-title" data-i18n="bench_title">Evaluation</h2>
           <p class="section-desc" data-i18n="bench_desc">
             WeMM-Video-35B-A3B sets a new open-source state of the art in omni-modal video understanding and leads general audio benchmarks, while preserving strong silent video, image, and text capabilities.
           </p>
@@ -312,7 +296,6 @@
               <div class="figure-label-tag" data-i18n="glance_video_tag">Omni-Modal Video</div>
               <div class="figure-sheet" data-zoom-src="assets/wemm-video-benchmarks.png" data-zoom-alt="Omni-Modal Video Benchmarks">
                 <img src="assets/wemm-video-benchmarks.png" alt="WeMM-Video Omni-Modal Video Benchmarks" />
-                <span class="zoom-hint" data-i18n="click_enlarge">Click to enlarge</span>
               </div>
             </div>
 
@@ -320,7 +303,6 @@
               <div class="figure-label-tag" data-i18n="glance_audio_tag">Audio & Voice</div>
               <div class="figure-sheet" data-zoom-src="assets/wemm_index_audio.png" data-zoom-alt="Audio Understanding Benchmarks">
                 <img src="assets/wemm_index_audio.png" alt="WeMM-Video Audio Benchmarks" />
-                <span class="zoom-hint" data-i18n="click_enlarge">Click to enlarge</span>
               </div>
             </div>
           </div>
@@ -383,8 +365,7 @@
     <section class="section-band" id="models">
       <div class="container">
         <div class="editorial-header reveal">
-          <span class="eyebrow" data-i18n="models_eyebrow">Open-Source Release</span>
-          <h2 class="section-title" data-i18n="models_title">Four model scales. Ready to deploy.</h2>
+          <h2 class="section-title" data-i18n="models_title">Models</h2>
           <p class="section-desc" data-i18n="models_desc">
             All weights, inference code, and evaluation recipes are open-sourced on GitHub and Hugging Face.
           </p>
@@ -408,28 +389,28 @@
                   <span class="badge-flagship" data-i18n="badge_flagship">Flagship</span>
                 </td>
                 <td>Qwen3.6-35B-A3B</td>
-                <td>35B (3B active MoE)</td>
+                <td data-i18n="params_35b">35B (3B active MoE)</td>
                 <td data-i18n="m_35b_use">Flagship MoE · SOTA omni-modal reasoning</td>
                 <td><a class="hf-btn" href="https://huggingface.co/tencent/WeMM-Video-35BA3B" target="_blank" rel="noopener">Hugging Face ↗</a></td>
               </tr>
               <tr>
                 <td class="model-name-cell">WeMM-Video-9B</td>
                 <td>Qwen3.5-9B</td>
-                <td>9B Dense</td>
+                <td data-i18n="params_9b">9B Dense</td>
                 <td data-i18n="m_9b_use">High-accuracy single-GPU deployment</td>
                 <td><a class="hf-btn" href="https://huggingface.co/tencent/WeMM-Video-9B" target="_blank" rel="noopener">Hugging Face ↗</a></td>
               </tr>
               <tr>
                 <td class="model-name-cell">WeMM-Video-4B</td>
                 <td>Qwen3.5-4B</td>
-                <td>4B Dense</td>
+                <td data-i18n="params_4b">4B Dense</td>
                 <td data-i18n="m_4b_use">Compact edge & mobile multimodal inference</td>
                 <td><a class="hf-btn" href="https://huggingface.co/tencent/WeMM-Video-4B" target="_blank" rel="noopener">Hugging Face ↗</a></td>
               </tr>
               <tr>
                 <td class="model-name-cell">WeMM-Video-2B</td>
                 <td>Qwen3.5-2B</td>
-                <td>2B Dense</td>
+                <td data-i18n="params_2b">2B Dense</td>
                 <td data-i18n="m_2b_use">Ultra-lightweight on-device audio-visual model</td>
                 <td><a class="hf-btn" href="https://huggingface.co/tencent/WeMM-Video-2B" target="_blank" rel="noopener">Hugging Face ↗</a></td>
               </tr>
@@ -455,20 +436,16 @@
 
         <div id="citation" style="margin-top: 84px;" class="reveal">
           <div class="editorial-header" style="margin-bottom: 24px;">
-            <span class="eyebrow" data-i18n="cite_eyebrow">Citation</span>
-            <h2 class="section-title" data-i18n="cite_title">Cite our work</h2>
+            <h2 class="section-title" data-i18n="cite_title">Citation</h2>
           </div>
 
           <div class="bibtex-box">
             <button type="button" class="copy-btn" id="copy-bibtex-btn" data-i18n="copy_btn">Copy BibTeX</button>
-            <pre><code id="bibtex-code">@misc{WeMM-Video,
-      title={WeMM-Video: Pushing the Frontiers of Open-Source Omni-Modal Video Understanding}, 
-      author={Changli Tang and Jie Yang and Tianyi Wang and Lei Li and Daoze Zhang and Zijie Xin and Zhan Liu and Li Li and Jinchang Xu and Fengyun Rao and Chao Zhang and Jing Lyu},
-      year={2026},
-      eprint={2611.26409},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2611.26409}, 
+            <pre><code id="bibtex-code">@article{tang2026wemmvideo,
+  title={WeMM-Video: Pushing the Frontiers of Open-Source Omni-Modal Video Understanding},
+  author={Changli Tang and Jie Yang and Tianyi Wang and Lei Li and Daoze Zhang and Zijie Xin and Zhan Liu and Li Li and Jinchang Xu and Fengyun Rao and Chao Zhang and Jing Lyu},
+  journal={arXiv preprint arXiv:2611.26409},
+  year={2026}
 }</code></pre>
           </div>
         </div>
@@ -483,6 +460,7 @@
           <a href="https://arxiv.org/abs/2611.26409" target="_blank" rel="noopener" data-i18n="cta_paper">Paper</a>
           <a href="https://github.com/Tencent/WeMM-Video" target="_blank" rel="noopener">GitHub</a>
           <a href="https://huggingface.co/collections/tencent/wemm-video" target="_blank" rel="noopener">Hugging Face</a>
+          <a href="https://www.modelscope.ai/collections/WeChat-Vision/WeMM-Video" target="_blank" rel="noopener">ModelScope</a>
           <a href="demos.html" data-i18n="nav_demos">Demos</a>
         </div>
       </div>

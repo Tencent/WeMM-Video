@@ -4,16 +4,21 @@
 
 window.WEMM_I18N = {
   en: {
+    hero_paper_title: "Pushing the Frontiers of Open-Source Omni-Modal Video Understanding",
+    params_35b: "35B (3B active MoE)",
+    params_9b: "9B Dense",
+    params_4b: "4B Dense",
+    params_2b: "2B Dense",
     nav_home: "Home",
     nav_cap: "Capabilities",
     nav_arch: "Architecture",
     nav_data: "Data",
-    nav_bench: "Benchmarks",
+    nav_bench: "Evaluation",
     nav_models: "Models",
     nav_demos: "Demos",
 
-    hero_org: "WeChat Vision, Tencent · Tsinghua University",
-    hero_tagline: "See Every Frame. Hear Every Sound. Understand Real Video.",
+    hero_org_tencent: "WeChat Vision, Tencent Inc.",
+    hero_org_tsinghua: "Tsinghua University",
     hero_sub:
       "An open-source bilingual omni-modal foundation model family for joint audio-visual video understanding and reasoning.",
     cta_paper: "Paper",
@@ -24,7 +29,7 @@ window.WEMM_I18N = {
 
     /* Section 1: Capabilities */
     cap_eyebrow: "Capabilities",
-    cap_title: "See and hear the full story.",
+    cap_title: "Capabilities",
     cap_desc:
       "Real-world video meaning lives in the interplay between visuals, speech, and sound.",
 
@@ -51,7 +56,7 @@ window.WEMM_I18N = {
 
     /* Section 2: Architecture */
     arch_eyebrow: "Architecture",
-    arch_title: "One unified omni-modal model.",
+    arch_title: "Architecture",
     arch_desc:
       "Processes text, images, audio, and video in a single autoregressive model, interleaving visual frames and continuous acoustic tokens along explicit timestamps.",
     arch_pdf: "Download PDF ↗",
@@ -67,7 +72,7 @@ window.WEMM_I18N = {
 
     /* Section 3: Training Data */
     data_eyebrow: "Training Data",
-    data_title: "An audio-visual-first multimodal corpus.",
+    data_title: "Training Data",
     data_desc:
       "1.2T training tokens led by joint audio-visual data (45.4%), spanning video, audio, image, and text tasks.",
     data_fig1_caption: "Modality Distribution",
@@ -84,7 +89,7 @@ window.WEMM_I18N = {
 
     /* Section 4: Benchmarks */
     bench_eyebrow: "Benchmarks",
-    bench_title: "Leading omni-modal performance.",
+    bench_title: "Evaluation",
     bench_desc:
       "WeMM-Video-35B-A3B sets open-source SOTA on omni-modal video and audio benchmarks while preserving strong silent video, image, and text performance.",
     glance_title: "Performance at a Glance",
@@ -106,7 +111,7 @@ window.WEMM_I18N = {
 
     /* Section 5: Models */
     models_eyebrow: "Models",
-    models_title: "Four model scales. Fully open-sourced.",
+    models_title: "Models",
     models_desc: "Weights, inference code, and evaluation recipes on GitHub and Hugging Face.",
     col_model: "Model",
     col_base: "Backbone",
@@ -128,7 +133,7 @@ window.WEMM_I18N = {
 
     /* Citation */
     cite_eyebrow: "Citation",
-    cite_title: "Cite our work",
+    cite_title: "Citation",
     copy_btn: "Copy BibTeX",
     copied_btn: "Copied ✓",
 
@@ -141,8 +146,8 @@ window.WEMM_I18N = {
     demos_desc:
       "Real-world audio-visual clips demonstrating joint perception across video frames, dialogue, and soundtracks.",
     demo_track_all: "All",
-    demo_track_en: "EN",
-    demo_track_zh: "ZH",
+    demo_track_en: "English",
+    demo_track_zh: "中文",
     demo_empty: "No demos available yet.",
     demo_prompt: "Prompt",
     demo_trace_label: "Thought Process",
@@ -151,6 +156,11 @@ window.WEMM_I18N = {
   },
 
   zh: {
+    hero_paper_title: "推进开源全模态视频理解的前沿",
+    params_35b: "35B（3B 激活参数，混合专家架构）",
+    params_9b: "9B 稠密模型",
+    params_4b: "4B 稠密模型",
+    params_2b: "2B 稠密模型",
     nav_home: "首页",
     nav_cap: "核心能力",
     nav_arch: "模型架构",
@@ -159,8 +169,8 @@ window.WEMM_I18N = {
     nav_models: "开源模型",
     nav_demos: "视频演示",
 
-    hero_org: "腾讯微信视觉 · 清华大学",
-    hero_tagline: "看见每一帧，听懂每一声，理解真实视频。",
+    hero_org_tencent: "腾讯微信视觉",
+    hero_org_tsinghua: "清华大学",
     hero_sub:
       "面向真实世界音画联合理解与跨模态推理的开源中英双语全模态基础模型家族。",
     cta_paper: "技术报告",
@@ -171,7 +181,7 @@ window.WEMM_I18N = {
 
     /* Section 1: Capabilities */
     cap_eyebrow: "核心能力",
-    cap_title: "视听协同，完整理解真实视频。",
+    cap_title: "核心能力",
     cap_desc:
       "真实视频中的关键信息，往往藏在画面、对话与环境声的同步交织里。",
 
@@ -198,7 +208,7 @@ window.WEMM_I18N = {
 
     /* Section 2: Architecture */
     arch_eyebrow: "模型架构",
-    arch_title: "统一的全模态基础架构。",
+    arch_title: "模型架构",
     arch_desc:
       "在单一自回归框架内统一处理文本、图像、音频与视频，借助显式时间戳将视频帧与声学 Token 沿时间轴精准交织。",
     arch_pdf: "下载 PDF ↗",
@@ -214,7 +224,7 @@ window.WEMM_I18N = {
 
     /* Section 3: Training Data */
     data_eyebrow: "训练数据",
-    data_title: "以音画为核心的多模态语料。",
+    data_title: "训练数据",
     data_desc:
       "1.2T 高质量多模态训练语料，音画联合数据占比最高（45.4%），全面覆盖视频、音频、图像与文本任务。",
     data_fig1_caption: "模态分布",
@@ -231,7 +241,7 @@ window.WEMM_I18N = {
 
     /* Section 4: Benchmarks */
     bench_eyebrow: "评测结果",
-    bench_title: "领先的全模态评测表现。",
+    bench_title: "评测结果",
     bench_desc:
       "WeMM-Video-35B-A3B 刷新开源全模态视频理解 SOTA 并在音频基准领先，同时保持出色的纯视觉视频、图像与纯文本能力。",
     glance_title: "核心评测速览",
@@ -253,7 +263,7 @@ window.WEMM_I18N = {
 
     /* Section 5: Models */
     models_eyebrow: "开源模型",
-    models_title: "四种参数规格，全面开源。",
+    models_title: "开源模型",
     models_desc: "模型权重、推理代码与评测方案已在 GitHub 与 Hugging Face 开源。",
     col_model: "模型名称",
     col_base: "基座模型",
@@ -275,7 +285,7 @@ window.WEMM_I18N = {
 
     /* Citation */
     cite_eyebrow: "引用文献",
-    cite_title: "引用我们的工作",
+    cite_title: "引用文献",
     copy_btn: "复制 BibTeX",
     copied_btn: "已复制 ✓",
 
@@ -288,8 +298,8 @@ window.WEMM_I18N = {
     demos_desc:
       "精选真实世界音画视频案例，展示画面、对话与音轨的联合理解与推理效果。",
     demo_track_all: "全部",
-    demo_track_en: "EN",
-    demo_track_zh: "ZH",
+    demo_track_en: "English",
+    demo_track_zh: "中文",
     demo_empty: "暂无演示案例。",
     demo_prompt: "用户提问",
     demo_trace_label: "思考过程",
