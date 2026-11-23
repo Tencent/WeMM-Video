@@ -57,7 +57,6 @@
       }
 
       void main() {
-        vec2 uv = gl_FragCoord.xy / u_res.xy;
         vec2 p = (gl_FragCoord.xy - 0.5 * u_res.xy) / min(u_res.x, u_res.y);
 
         // Smooth scroll-driven vertical parallax & subtle palette drift
@@ -90,40 +89,12 @@
         float ribbon1 = exp(-pow(abs(pr.y + sc * 0.95 - w1 * 0.24 - 0.05), 1.45) * 4.8);
         float ribbon2 = exp(-pow(abs(pr.y + sc * 0.95 - w2 * 0.20 + 0.17), 1.55) * 5.6);
 
-        // Deep obsidian cinema base with rich contrast (no flat teal wash)
-        vec3 baseCol  = vec3(0.015, 0.024, 0.048);
-        vec3 deepBlue = vec3(0.030, 0.110, 0.275);
-        vec3 emerald  = vec3(0.030, 0.640, 0.510);
-        vec3 cyanGlow = vec3(0.110, 0.720, 0.940);
-        vec3 warmGold = vec3(0.900, 0.610, 0.180);
-
-        // Hero is vivid & dramatic; reading chapters stay richly moody yet visible
-        float heroPresence = mix(1.0, 0.64, smoothstep(0.0, 0.16, sc));
-        float sectionPulse = 1.0 + 0.18 * sin(sc * 6.28318 * 1.5);
-        float energy = heroPresence * sectionPulse * u_intensity;
-
-        vec3 col = baseCol;
-        col = mix(col, deepBlue, smoothstep(0.22, 0.88, f) * 0.90 * energy);
-        col += emerald * pow(clamp(length(q) * 0.72, 0.0, 1.0), 2.3) * 0.34 * energy;
-        col += emerald * ribbon1 * 0.44 * energy;
-        col += cyanGlow * ribbon2 * 0.30 * energy;
-        col += warmGold * ribbon1 * smoothstep(0.46, 0.88, r.y) * 0.36 * energy;
-
-        // Subtle horizontal anamorphic optical streak behind hero title
-        float flare = exp(-abs(p.y - 0.03) * 14.0) * exp(-abs(p.x) * 1.6);
-        col += vec3(0.18, 0.80, 0.72) * flare * 0.22 * heroPresence;
-
-        // Dramatic cinema vignette for deep edges and crisp typography contrast
-        float vig = smoothstep(1.32, 0.18, length((uv - 0.5) * vec2(1.18, 1.08)));
-        col *= mix(0.28, 1.0, vig);
-
-        // Micro film grain to prevent gradient banding
-        float grain = (hash(gl_FragCoord.xy + fract(u_time)) - 0.5) * 0.014;
-        col += grain;
-
-        // Filmic tone curve preserving deep obsidian blacks & glowing highlights
-        col = col / (col + vec3(0.75));
-        col = pow(max(col, 0.0), vec3(0.95));
+        // Tint the white surface where the moving ribbons and mist overlap.
+        float energy = mix(1.0, 0.64, smoothstep(0.0, 0.16, sc)) * u_intensity;
+        float mist = smoothstep(0.32, 0.82, f);
+        float tint = (0.24 * mist + 0.47 * ribbon1 + 0.29 * ribbon2) * energy;
+        vec3 col = mix(vec3(1.0), vec3(0.82, 0.93, 0.86), clamp(tint, 0.0, 1.0));
+        col += (hash(gl_FragCoord.xy) - 0.5) / 255.0;
 
         gl_FragColor = vec4(col, 1.0);
       }
@@ -173,22 +144,18 @@
         const h = canvas.height;
         const energy = 1 - Math.min(0.42, scroll * 2.2);
 
-        const bg = ctx.createLinearGradient(0, 0, w, h);
-        bg.addColorStop(0, "#050912");
-        bg.addColorStop(0.5, "#081426");
-        bg.addColorStop(1, "#050912");
-        ctx.fillStyle = bg;
+        ctx.fillStyle = "#ffffff";
         ctx.fillRect(0, 0, w, h);
 
         const orbs = [
-          { x: 0.30 + Math.sin(t * 0.28) * 0.10, y: 0.38 - scroll * 0.2, r: 0.48, c: `rgba(16, 185, 129, ${(0.28 * energy).toFixed(3)})` },
-          { x: 0.72 + Math.cos(t * 0.22) * 0.10, y: 0.30 + scroll * 0.12, r: 0.50, c: `rgba(56, 189, 248, ${(0.22 * energy).toFixed(3)})` },
-          { x: 0.52 + Math.sin(t * 0.19) * 0.12, y: 0.68 - scroll * 0.15, r: 0.44, c: `rgba(245, 158, 11, ${(0.14 * energy).toFixed(3)})` }
+          { x: 0.30 + Math.sin(t * 0.28) * 0.10, y: 0.38 - scroll * 0.2, r: 0.48, c: `rgba(56, 150, 88, ${(0.12 * energy).toFixed(3)})` },
+          { x: 0.72 + Math.cos(t * 0.22) * 0.10, y: 0.30 + scroll * 0.12, r: 0.50, c: `rgba(97, 165, 120, ${(0.10 * energy).toFixed(3)})` },
+          { x: 0.52 + Math.sin(t * 0.19) * 0.12, y: 0.68 - scroll * 0.15, r: 0.44, c: `rgba(129, 183, 144, ${(0.07 * energy).toFixed(3)})` }
         ];
         orbs.forEach((o) => {
           const g = ctx.createRadialGradient(o.x * w, o.y * h, 0, o.x * w, o.y * h, o.r * Math.max(w, h));
           g.addColorStop(0, o.c);
-          g.addColorStop(1, "rgba(5, 9, 18, 0)");
+          g.addColorStop(1, "rgba(255, 255, 255, 0)");
           ctx.fillStyle = g;
           ctx.fillRect(0, 0, w, h);
         });
@@ -207,8 +174,8 @@
             else ctx.lineTo(x, y);
           }
           ctx.strokeStyle = k % 2 === 0
-            ? `rgba(45, 212, 191, ${(0.14 * energy).toFixed(3)})`
-            : `rgba(56, 189, 248, ${(0.10 * energy).toFixed(3)})`;
+            ? `rgba(56, 150, 88, ${(0.07 * energy).toFixed(3)})`
+            : `rgba(97, 165, 120, ${(0.10 * energy).toFixed(3)})`;
           ctx.lineWidth = 2.0;
           ctx.stroke();
         }

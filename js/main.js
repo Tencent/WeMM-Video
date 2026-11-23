@@ -502,7 +502,7 @@
     });
 
     if (!bodyRows) {
-      bodyRows = `<tr><td colspan="${cols.length + 1}" style="padding:24px;color:#8ea0b8;">No matching benchmarks found.</td></tr>`;
+      bodyRows = `<tr><td colspan="${cols.length + 1}" style="padding:24px;color:var(--ink-muted);">No matching benchmarks found.</td></tr>`;
     }
 
     containerEl.innerHTML = `
