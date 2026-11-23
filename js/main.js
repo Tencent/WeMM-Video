@@ -19,6 +19,7 @@
   let tableSearchQuery = "";
 
   /* Demo Page State */
+  let activeDemoId = "";
   let activeDemoTrack = "all"; // "all" | "en" | "zh"
 
   function detectInitialLang() {
@@ -87,9 +88,12 @@
         const scrollPos = window.scrollY + 140;
         let current = null;
         for (const item of sectionAnchors) {
-          if (item.target.offsetTop <= scrollPos) {
+          if (item.target.getBoundingClientRect().top + window.scrollY <= scrollPos) {
             current = item.link;
           }
+        }
+        if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2) {
+          current = sectionAnchors[sectionAnchors.length - 1].link;
         }
         sectionAnchors.forEach(({ link }) => {
           link.classList.toggle("active", link === current);
@@ -681,9 +685,7 @@
     const enDemos = loadedDemos.filter((d) => Boolean(d.en));
     const zhDemos = loadedDemos.filter((d) => Boolean(d.zh));
     const preferZh = currentLang === "zh";
-    const allDemos = preferZh
-      ? [...zhDemos, ...loadedDemos.filter((d) => !d.zh && Boolean(d.en))]
-      : [...enDemos, ...loadedDemos.filter((d) => !d.en && Boolean(d.zh))];
+    const allDemos = loadedDemos;
 
     document.querySelectorAll("[data-demo-track]").forEach((btn) => {
       btn.classList.toggle("active", btn.getAttribute("data-demo-track") === activeDemoTrack);
@@ -697,9 +699,26 @@
       return;
     }
 
-    container.innerHTML = items
+    const caseTabs = document.getElementById("demo-case-tabs");
+    let visibleItems = items;
+    if (caseTabs) {
+      if (!items.some((demo) => demo.id === activeDemoId)) activeDemoId = items[0].id;
+      caseTabs.innerHTML = items.map((demo) => {
+        const track = activeDemoTrack === "zh" ? demo.zh : activeDemoTrack === "en" ? demo.en : preferZh ? (demo.zh || demo.en) : (demo.en || demo.zh);
+        return `<button type="button" class="demo-track-btn ${demo.id === activeDemoId ? "active" : ""}" data-demo-case="${escapeHtml(demo.id)}" aria-pressed="${demo.id === activeDemoId}">${escapeHtml(track.title || demo.id)}</button>`;
+      }).join("");
+      caseTabs.querySelectorAll("[data-demo-case]").forEach((button) => {
+        button.addEventListener("click", () => {
+          activeDemoId = button.getAttribute("data-demo-case");
+          renderDemos();
+        });
+      });
+      visibleItems = items.filter((demo) => demo.id === activeDemoId);
+    }
+
+    container.innerHTML = visibleItems
       .map((demo) => {
-        const idxLabel = demo.id;
+        const idxLabel = demo.id.replace(/^demo-/, "example-");
         const resolvedMode =
           activeDemoTrack === "zh"
             ? "zh"

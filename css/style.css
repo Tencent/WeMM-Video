@@ -333,7 +333,7 @@ a:hover {
   margin: 0 auto 32px;
   max-width: 880px;
   font-size: 21px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.6;
   color: var(--emerald-deep);
   text-wrap: balance;
@@ -468,7 +468,7 @@ a:hover {
   font-weight: 800;
   line-height: 1.18;
   letter-spacing: -0.03em;
-  color: var(--ink);
+  color: var(--emerald);
   text-wrap: balance;
 }
 
@@ -1653,6 +1653,19 @@ a:hover {
   color: var(--ink-muted);
 }
 
+.demo-case-tabs {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  margin-top: 20px;
+  padding-bottom: 8px;
+}
+
+.demo-case-tabs .demo-track-btn {
+  flex-shrink: 0;
+  border: 1px solid var(--border-strong);
+}
+
 .demo-list {
   display: flex;
   flex-direction: column;
@@ -1774,10 +1787,10 @@ a:hover {
 }
 
 .demo-io-col {
-  padding: 24px 26px;
+  padding: 18px 20px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 4px;
 }
 
 .demo-title {
@@ -1789,7 +1802,7 @@ a:hover {
 }
 
 .demo-prompt-box {
-  padding: 13px 15px;
+  padding: 9px 12px;
   border-radius: 12px;
   background: var(--surface-soft);
   border: 1px solid var(--border);
@@ -1866,7 +1879,7 @@ a:hover {
 }
 
 .demo-thinking-box {
-  padding: 14px 14px 14px 16px;
+  padding: 10px 12px;
   border-radius: 12px;
   background: var(--surface-soft);
   border: 1px solid var(--border);
@@ -1881,7 +1894,7 @@ a:hover {
 }
 
 .demo-answer-box {
-  padding: 16px 14px 16px 18px;
+  padding: 6px 12px 10px;
   border-radius: 12px;
   background: var(--surface);
   border: 1px solid var(--line-accent);
@@ -1898,7 +1911,7 @@ a:hover {
   letter-spacing: 0.1em;
   text-transform: none;
   color: var(--emerald-deep);
-  margin-bottom: 10px;
+  margin-bottom: 2px;
 }
 
 /* Compact Scrollable Panes for Both Thinking & Final Response */
@@ -1932,6 +1945,14 @@ a:hover {
 .md-body {
   font-size: 16px;
   line-height: 1.72;
+}
+
+.demo-io-col .md-body {
+  line-height: 1.55;
+}
+
+.demo-io-col .md-body p {
+  margin-bottom: 6px;
 }
 
 .demo-thinking-content.md-body {

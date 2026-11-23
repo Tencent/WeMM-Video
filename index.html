@@ -27,7 +27,8 @@
           <a href="#data" data-i18n="nav_data">Data</a>
           <a href="#benchmarks" data-i18n="nav_bench">Evaluation</a>
           <a href="#models" data-i18n="nav_models">Models</a>
-          <a href="demos.html" data-i18n="nav_demos">Demos</a>
+          <a href="#examples" data-i18n="nav_demos">Examples</a>
+          <a href="#citation" data-i18n="cite_title">Citation</a>
         </nav>
 
         <div class="nav-actions">
@@ -92,11 +93,11 @@
               <img src="assets/modelscope.ico" alt="" width="18" height="18" />
               <span>ModelScope</span>
             </a>
-            <a class="btn btn-emerald" href="demos.html">
+            <a class="btn btn-emerald" href="#examples">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                 <polygon points="5 3 19 12 5 21 5 3"></polygon>
               </svg>
-              <span data-i18n="cta_demos">Demos</span>
+              <span data-i18n="cta_demos">Examples</span>
             </a>
           </div>
         </div>
@@ -425,13 +426,20 @@
          ==================================================================== -->
     <section class="section-band alt">
       <div class="container">
-        <div class="demo-portal reveal">
-          <span class="eyebrow" data-i18n="portal_eyebrow">Screening Room</span>
-          <h2 data-i18n="portal_title">Watch WeMM-Video in action.</h2>
-          <p data-i18n="portal_desc">
-            Explore real-world video demonstrations showcasing audio-visual reasoning, speaker attribution, and music & acoustic perception.
-          </p>
-          <a class="btn btn-emerald" href="demos.html" data-i18n="portal_cta">Open Demo Gallery →</a>
+        <div id="examples" class="reveal">
+          <div class="editorial-header">
+            <h2 class="section-title" data-i18n="nav_demos">Examples</h2>
+            <p class="section-desc" data-i18n="demos_desc">Real-world audio-visual clips demonstrating joint perception across video frames, dialogue, and soundtracks.</p>
+          </div>
+          <div class="demo-track-bar">
+            <div class="demo-track-switch" id="demo-track-switch" role="tablist">
+              <button type="button" class="demo-track-btn active" data-demo-track="all" data-i18n="demo_track_all">All</button>
+              <button type="button" class="demo-track-btn" data-demo-track="en" data-i18n="demo_track_en">English</button>
+              <button type="button" class="demo-track-btn" data-demo-track="zh" data-i18n="demo_track_zh">中文</button>
+            </div>
+          </div>
+          <div class="demo-case-tabs" id="demo-case-tabs" role="group" aria-label="Demo cases"></div>
+          <div class="demo-list" id="demo-list"></div>
         </div>
 
         <div id="citation" style="margin-top: 84px;" class="reveal">
@@ -461,7 +469,7 @@
           <a href="https://github.com/Tencent/WeMM-Video" target="_blank" rel="noopener">GitHub</a>
           <a href="https://huggingface.co/collections/tencent/wemm-video" target="_blank" rel="noopener">Hugging Face</a>
           <a href="https://www.modelscope.ai/collections/WeChat-Vision/WeMM-Video" target="_blank" rel="noopener">ModelScope</a>
-          <a href="demos.html" data-i18n="nav_demos">Demos</a>
+          <a href="#examples" data-i18n="nav_demos">Examples</a>
         </div>
       </div>
     </footer>
@@ -476,6 +484,8 @@
   <script src="js/hero-canvas.js"></script>
   <script src="js/benchmarks-data.js"></script>
   <script src="js/i18n.js"></script>
+  <script src="js/markdown.js?v=2"></script>
+  <script src="js/demos-data.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

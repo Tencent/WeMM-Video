@@ -149,12 +149,13 @@ window.WEMM_MD = (function () {
 
       // Ordered list
       if (/^\s*\d+\.\s+/.test(line)) {
+        const start = Number(line.match(/^\s*(\d+)\./)[1]);
         const items = [];
         while (i < lines.length && /^\s*\d+\.\s+/.test(lines[i])) {
           items.push(lines[i].replace(/^\s*\d+\.\s+/, ""));
           i++;
         }
-        out.push(`<ol>${items.map((it) => `<li>${formatInline(it)}</li>`).join("")}</ol>`);
+        out.push(`<ol start="${start}">${items.map((it) => `<li>${formatInline(it)}</li>`).join("")}</ol>`);
         continue;
       }
 

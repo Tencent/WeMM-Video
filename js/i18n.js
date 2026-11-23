@@ -15,7 +15,7 @@ window.WEMM_I18N = {
     nav_data: "Data",
     nav_bench: "Evaluation",
     nav_models: "Models",
-    nav_demos: "Demos",
+    nav_demos: "Examples",
 
     hero_org_tencent: "WeChat Vision, Tencent Inc.",
     hero_org_tsinghua: "Tsinghua University",
@@ -24,7 +24,7 @@ window.WEMM_I18N = {
     cta_paper: "Paper",
     cta_github: "GitHub",
     cta_hf: "Hugging Face",
-    cta_demos: "Demos",
+    cta_demos: "Examples",
     scroll_cue: "Scroll",
 
     /* Section 1: Capabilities */
@@ -142,7 +142,7 @@ window.WEMM_I18N = {
 
     /* Demos Page */
     demos_eyebrow: "Demos",
-    demos_title: "Video Demonstrations",
+    demos_title: "Examples",
     demos_desc:
       "Real-world audio-visual clips demonstrating joint perception across video frames, dialogue, and soundtracks.",
     demo_track_all: "All",
@@ -167,7 +167,7 @@ window.WEMM_I18N = {
     nav_data: "训练数据",
     nav_bench: "评测结果",
     nav_models: "开源模型",
-    nav_demos: "视频演示",
+    nav_demos: "示例",
 
     hero_org_tencent: "腾讯微信视觉",
     hero_org_tsinghua: "清华大学",
@@ -176,7 +176,7 @@ window.WEMM_I18N = {
     cta_paper: "技术报告",
     cta_github: "GitHub",
     cta_hf: "Hugging Face",
-    cta_demos: "视频演示",
+    cta_demos: "示例",
     scroll_cue: "向下浏览",
 
     /* Section 1: Capabilities */
@@ -294,7 +294,7 @@ window.WEMM_I18N = {
 
     /* Demos Page */
     demos_eyebrow: "视频演示",
-    demos_title: "视频效果演示",
+    demos_title: "示例",
     demos_desc:
       "精选真实世界音画视频案例，展示画面、对话与音轨的联合理解与推理效果。",
     demo_track_all: "全部",
