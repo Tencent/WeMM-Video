@@ -15,16 +15,17 @@ window.WEMM_I18N = {
     nav_data: "Data",
     nav_bench: "Evaluation",
     nav_models: "Models",
-    nav_demos: "Examples",
+    nav_demos: "Demo",
 
     hero_org_tencent: "WeChat Vision, Tencent Inc.",
     hero_org_tsinghua: "Tsinghua University",
     hero_sub:
       "An open-source bilingual omni-modal foundation model family for joint audio-visual video understanding and reasoning.",
     cta_paper: "Paper",
+    cta_technical_report: "Technical Report",
     cta_github: "GitHub",
     cta_hf: "Hugging Face",
-    cta_demos: "Examples",
+    cta_demos: "Demo",
     scroll_cue: "Scroll",
 
     /* Section 1: Capabilities */
@@ -142,7 +143,7 @@ window.WEMM_I18N = {
 
     /* Demos Page */
     demos_eyebrow: "Demos",
-    demos_title: "Examples",
+    demos_title: "Demo",
     demos_desc:
       "Real-world audio-visual clips demonstrating joint perception across video frames, dialogue, and soundtracks.",
     demo_track_all: "All",
@@ -167,16 +168,17 @@ window.WEMM_I18N = {
     nav_data: "训练数据",
     nav_bench: "评测结果",
     nav_models: "开源模型",
-    nav_demos: "示例",
+    nav_demos: "演示",
 
     hero_org_tencent: "腾讯微信视觉",
     hero_org_tsinghua: "清华大学",
     hero_sub:
       "面向真实世界音画联合理解与跨模态推理的开源中英双语全模态基础模型家族。",
     cta_paper: "技术报告",
+    cta_technical_report: "技术报告",
     cta_github: "GitHub",
     cta_hf: "Hugging Face",
-    cta_demos: "示例",
+    cta_demos: "演示",
     scroll_cue: "向下浏览",
 
     /* Section 1: Capabilities */
@@ -294,7 +296,7 @@ window.WEMM_I18N = {
 
     /* Demos Page */
     demos_eyebrow: "视频演示",
-    demos_title: "示例",
+    demos_title: "演示",
     demos_desc:
       "精选真实世界音画视频案例，展示画面、对话与音轨的联合理解与推理效果。",
     demo_track_all: "全部",

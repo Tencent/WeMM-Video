@@ -718,7 +718,7 @@
 
     container.innerHTML = visibleItems
       .map((demo) => {
-        const idxLabel = demo.id.replace(/^demo-/, "example-");
+        const idxLabel = demo.id;
         const resolvedMode =
           activeDemoTrack === "zh"
             ? "zh"
@@ -766,7 +766,6 @@
           <article class="demo-card">
             <div class="demo-video-col">
               <div class="demo-card-top">
-                <span class="demo-index">${escapeHtml(idxLabel)}</span>
                 <div class="demo-tags">${modeBadgeHtml}</div>
               </div>
               <div class="demo-player-frame" data-player-for="${escapeHtml(demo.id)}">${mediaHtml}</div>
