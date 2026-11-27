@@ -58,10 +58,9 @@ This recipe uses patched vLLM 0.18.0.
 ```bash
 MODEL=tencent/WeMM-Video-2B
 vllm serve "$MODEL" --served-model-name "$MODEL" --trust-remote-code --dtype bfloat16 \
-  --host 127.0.0.1 --port 8000 --max-model-len 8192 \
+  --host 127.0.0.1 --port 8000 --max-model-len 65536 \
   --no-enable-prefix-caching --mamba-ssm-cache-dtype float32 \
-  --limit-mm-per-prompt '{"image":4,"video":2,"audio":2}' \
-  --media-io-kwargs '{"video":{"fps":2,"min_frames":4,"max_frames":16,"total_pixels":262144}}'
+  --limit-mm-per-prompt '{"image":4,"video":2,"audio":2}'
 ```
 
 Pass an FP8 or AWQ Hub ID to use its checkpoint quantization configuration.
@@ -76,12 +75,11 @@ and Marlin.
 ```bash
 MODEL=tencent/WeMM-Video-2B-NVFP4
 vllm serve "$MODEL" --served-model-name "$MODEL" --trust-remote-code --dtype bfloat16 \
-  --host 127.0.0.1 --port 8000 --max-model-len 8192 \
+  --host 127.0.0.1 --port 8000 --max-model-len 65536 \
   --max-num-seqs 1 --max-num-batched-tokens 8192 \
   --no-enable-prefix-caching --mamba-cache-mode none --mamba-ssm-cache-dtype float32 \
   --mm-processor-cache-gb 0 --skip-mm-profiling \
   --limit-mm-per-prompt '{"image":4,"video":2,"audio":2}' \
-  --media-io-kwargs '{"video":{"fps":2,"min_frames":4,"max_frames":16,"total_pixels":262144}}' \
   --attention-config '{"backend":"FLASH_ATTN","flash_attn_version":2}' \
   --mm-encoder-attn-backend FLASH_ATTN \
   --quantization modelopt_mixed --linear-backend marlin --moe-backend marlin
@@ -94,20 +92,72 @@ Use a patched SGLang 0.5.16 or 0.5.19 environment.
 ```bash
 MODEL=tencent/WeMM-Video-2B
 python -m sglang.launch_server --model-path "$MODEL" --served-model-name "$MODEL" --trust-remote-code \
-  --host 127.0.0.1 --port 8000 --dtype bfloat16 --context-length 8192 \
+  --host 127.0.0.1 --port 8000 --dtype bfloat16 --context-length 65536 \
   --attention-backend triton --linear-attn-backend triton \
   --limit-mm-data-per-request '{"image":4,"video":2,"audio":2}'
 ```
 
 Set `--tp-size` for multi-GPU serving.
 
+## Video sampling and memory
+
+The commands above inherit the checkpoint's `processor_config.json`
+`wemm_defaults`, without imposing a low-resource sampling override:
+
+| Option | Default |
+| --- | --- |
+| `fps` | `2.0` |
+| `min_frames` | `4` |
+| `max_frames` | `128` |
+| `total_pixels` | `25165824` |
+| `min_pixels` | `4096` |
+
+These values match the [2B processor configuration](https://huggingface.co/tencent/WeMM-Video-2B/blob/main/processor_config.json)
+and the [35B-A3B FP8 processor configuration](https://huggingface.co/tencent/WeMM-Video-35BA3B-FP8/blob/7a1d00fc8c77cbdbf54231303341f2baa587091d/processor_config.json).
+The frame limit is a ceiling, not a fixed frame count. Sampling defaults can
+be overridden per clip using `video_url.fps`, `video_url.max_frames`, and
+`video_url.total_pixels`; the example client leaves them unset unless you pass
+`--fps`, `--max-frames`, or `--total-pixels`.
+
+If GPU memory or compute is limited, lower the pixel budget, frame limit, and
+FPS together. For a **low-resource quick check**, add the following option to
+a vLLM serve command:
+
+```bash
+--media-io-kwargs '{"video":{"fps":1,"min_frames":4,"max_frames":16,"total_pixels":262144,"min_pixels":4096}}'
+```
+
+For either backend, request the same low-resource settings for one clip:
+
+```bash
+python examples/chat.py video-audio --model "$MODEL" \
+  --fps 1 --max-frames 16 --total-pixels 262144
+```
+
+Explicit request values override server
+sampling defaults, so avoid sending them when you intend to inherit the server
+configuration. Smaller settings may miss brief actions and cuts. More frames
+share the same total pixel budget; the processor's per-frame budget calculation
+also includes a temporal factor of 2.
+
+The serving examples use a 65536-token context instead of 8192 to accommodate
+the larger video budget. The NVFP4 `--max-num-batched-tokens 8192` controls the
+scheduler's processing budget per iteration, separately from the context limit.
+Long audio, multiple clips, and generated tokens also consume context. If a
+request exceeds the limit, increase vLLM's `--max-model-len` or SGLang's
+`--context-length` within the checkpoint's supported length, or reduce the input
+budget. If memory is limited, lower the context limit together with the media
+budget. The GGUF launcher uses a 73728-token context, matching the native CLI;
+adjust it with `--context`.
+
 ## Send a video request
 
 The Transformers processor uses the `video_audio` content type for a video
 with its soundtrack. The OpenAI-compatible API uses `video_url` for both
 patched vLLM and SGLang. Set `video_url.use_audio` to `true` to process the
-video frames with the original soundtrack or `false` for frames only. Specify
-`fps` and `max_frames` inside `video_url` to control sampling for that clip.
+video frames with the original soundtrack or `false` for frames only. Omit
+sampling fields to inherit the server configuration. To override one clip, set
+`fps`, `max_frames`, and `total_pixels` inside `video_url`.
 
 Replace the URL below with an MP4 the server can reach. Set `model` to the
 Hub ID or alias exposed by the running server.
@@ -126,9 +176,7 @@ curl --fail-with-body --silent --show-error http://127.0.0.1:8000/v1/chat/comple
           "type": "video_url",
           "video_url": {
             "url": "https://example.com/clip.mp4",
-            "use_audio": true,
-            "fps": 1.0,
-            "max_frames": 16
+            "use_audio": true
           }
         },
         {"type": "text", "text": "Describe the scene and summarize what you hear."}

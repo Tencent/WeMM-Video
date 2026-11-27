@@ -138,7 +138,7 @@ inline void prepare(json & request, const std::string & directory) {
     if (!std::isfinite(fps)||fps<=0||total<2) throw std::runtime_error("Invalid video FPS/frame count");
     const int width=info.at("width"),height=info.at("height");
     const double target_fps=request.value("fps",2.0);
-    const int max_frames=request.value("max_frames",768), min_frames=request.value("min_frames",4);
+    const int max_frames=request.value("max_frames",128), min_frames=request.value("min_frames",4);
     const int total_pixels=request.value("total_pixels",25165824);
     if (!std::isfinite(target_fps)||target_fps<=0||max_frames<2||min_frames<2||total_pixels<4096)
         throw std::runtime_error("Invalid HF video sampling or pixel budget");

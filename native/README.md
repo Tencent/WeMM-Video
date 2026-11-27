@@ -42,4 +42,16 @@ Pass `--image image.jpg`, `--audio audio.wav`, `--video input.mp4`, or
 put `native/install-cuda/bin` on `PATH` and pass `--gpu-layers 99`. Choose a new
 `--output` filename for each run.
 
+Video sampling defaults match the model's `processor_config.json`:
+`fps=2.0`, `max_frames=128`, `min_frames=4`, `total_pixels=25165824`, and
+`min_pixels=4096`. Both `native/run_hf.py` and the native CLI use a 73728-token
+context by default. The maximum frame count is a ceiling; short clips may use
+fewer frames.
+
+If memory or compute is limited, pass
+`--fps 1 --max-frames 16 --total-pixels 262144` for a **low-resource quick check**.
+This reduces temporal coverage and spatial detail and may miss short events.
+Lower `--context` as needed while leaving room for all input and output tokens.
+For denser sampling, increase the frame limit and pixel budget together.
+
 See [third-party notices](THIRD_PARTY_NOTICES.md) for dependency attribution.

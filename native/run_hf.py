@@ -39,11 +39,12 @@ def main():
     video.add_argument('--video', type=Path, help='Video without audio')
     video.add_argument('--video-audio', type=Path, help='Video with its original audio')
     parser.add_argument('--gpu-layers', type=int, default=0)
-    parser.add_argument('--context', type=int, default=8192)
+    parser.add_argument('--context', type=int, default=73728)
     parser.add_argument('--threads', type=int, default=4)
-    parser.add_argument('--fps', type=float, default=1)
-    parser.add_argument('--max-frames', type=int, default=4)
-    parser.add_argument('--total-pixels', type=int, default=262144)
+    parser.add_argument('--fps', type=float, default=2.0, help='Video sampling FPS (default: 2)')
+    parser.add_argument('--max-frames', type=int, default=128, help='Video frame limit (default: 128)')
+    parser.add_argument('--total-pixels', type=int, default=25165824,
+                        help='Video pixel budget (default: 25165824); lower for limited memory')
     parser.add_argument('--max-new-tokens', type=int, default=128)
     args = parser.parse_args()
     if not args.runner or not Path(args.runner).is_file():

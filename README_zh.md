@@ -128,7 +128,6 @@ print(ask("Transcribe the English speech in this recording.", {
 # 使用同一个 MP4，分别测试纯画面和画面与原始音轨的联合输入。
 clip = {
     "video": "examples/media/apollo-11-first-steps.mp4",
-    "fps": 1.0, "min_frames": 4, "max_frames": 16, "total_pixels": 262144,
 }
 print(ask("Describe what happens on screen.", {"type": "video", **clip}))
 print(ask("Describe the scene and summarize the speech.", {"type": "video_audio", **clip}))
@@ -136,7 +135,20 @@ print(ask("Describe the scene and summarize the speech.", {"type": "video_audio"
 
 示例默认使用 Instruct 模式。在 `apply_chat_template` 中设置 `enable_thinking=True` 即可启用 Thinking 模式。
 
-如果只想在命令行运行带音轨的视频示例，可执行 `python examples/transformers_video.py`。脚本支持 `--video`、`--model` 和 `--revision` 参数。
+如果只想在命令行运行带音轨的视频示例，可执行 `python examples/transformers_video.py`。脚本支持 `--video`、`--model` 和 `--revision`，以及可选的 `--fps`、`--max-frames` 和 `--total-pixels` 覆盖参数。
+
+### 视频采样与资源占用
+
+视频示例默认继承检查点 [`processor_config.json`](https://huggingface.co/tencent/WeMM-Video-2B/blob/main/processor_config.json) 的 `wemm_defaults`：`fps=2.0`、`min_frames=4`、`max_frames=128`、`total_pixels=25165824`、`min_pixels=4096`。服务客户端默认继承服务端配置，只有显式传参时才覆盖采样值。GGUF 启动器和原生运行时也使用这组视频默认值。128 帧是上限，实际帧数还取决于视频时长和采样帧率。
+
+如果显存或算力不足，可以同时调低像素预算、最大帧数和采样帧率。例如，下例仅用于**低资源快速验证**：
+
+```bash
+python examples/transformers_video.py --video examples/media/apollo-11-first-steps.mp4 \
+  --fps 1 --max-frames 16 --total-pixels 262144
+```
+
+`examples/chat.py video-audio` 和 `native/run_hf.py` 也支持这三个参数。调小参数会降低空间细节与时间覆盖，可能遗漏短暂动作或快切镜头。只增加帧数会让更多帧共享原有像素预算；单帧预算计算还包含处理器的 `×2` 时间维系数。服务端统一覆盖配置和上下文长度设置见[部署指南](docs/serving.md#video-sampling-and-memory)。
 
 ## 部署与示例
 
@@ -169,10 +181,9 @@ docker run --rm --gpus all --shm-size=8g \
   --env HF_TOKEN \
   wemm-video:vllm-0.18.0-cu129 \
   vllm serve "$MODEL" --served-model-name "$MODEL" --trust-remote-code --dtype bfloat16 \
-  --host 0.0.0.0 --port 8000 --max-model-len 8192 \
+  --host 0.0.0.0 --port 8000 --max-model-len 65536 \
   --no-enable-prefix-caching --mamba-ssm-cache-dtype float32 \
-  --limit-mm-per-prompt '{"image":4,"video":2,"audio":2}' \
-  --media-io-kwargs '{"video":{"fps":2,"min_frames":4,"max_frames":16,"total_pixels":262144}}'
+  --limit-mm-per-prompt '{"image":4,"video":2,"audio":2}'
 ```
 
 #### SGLang
@@ -187,14 +198,14 @@ docker run --rm --gpus all --shm-size=8g \
   --env HF_TOKEN \
   wemm-video:sglang-0.5.16-cu129 \
   python -m sglang.launch_server --model-path "$MODEL" --served-model-name "$MODEL" --trust-remote-code \
-  --host 0.0.0.0 --port 8000 --dtype bfloat16 --context-length 8192 \
+  --host 0.0.0.0 --port 8000 --dtype bfloat16 --context-length 65536 \
   --attention-backend triton --linear-attn-backend triton \
   --limit-mm-data-per-request '{"image":4,"video":2,"audio":2}'
 ```
 
 #### 发送请求
 
-对于上述两种应用 patch 的后端，向 `POST /v1/chat/completions` 发送 `video_url` 内容项即可。将 `video_url.use_audio` 设为 `true` 可包含原始音轨，设为 `false` 则仅处理画面帧。在 `video_url` 内设置 `fps` 和 `max_frames` 可控制采帧。Thinking 模式的配置方法见[完整 HTTP 请求示例](docs/serving.md#send-a-video-request)。
+对于上述两种应用 patch 的后端，向 `POST /v1/chat/completions` 发送 `video_url` 内容项即可。将 `video_url.use_audio` 设为 `true` 可包含原始音轨，设为 `false` 则仅处理画面帧。不填采样字段时继承服务端默认值；在 `video_url` 内设置 `fps`、`max_frames` 和 `total_pixels` 可按视频覆盖。Thinking 模式的配置方法见[完整 HTTP 请求示例](docs/serving.md#send-a-video-request)。
 
 命名卷会缓存已下载的权重，供后续容器复用。服务就绪后，在另一个终端进入仓库根目录，用仓库附带的视频发起请求。
 

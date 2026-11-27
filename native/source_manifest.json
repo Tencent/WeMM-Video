@@ -40,12 +40,12 @@
       "sha256": "9c859e790613fc8990b19913a0cd47a6044be6907d84899c7cba8ccc830dc6b4"
     },
     "include/native_cli.h": {
-      "bytes": 9245,
-      "sha256": "dc2e9408df52118fac42c19ffb5d079e29056e63c4c3a19a4b46a77cb6cc1798"
+      "bytes": 9318,
+      "sha256": "e2657d620c2de5d50fe196cbfa5fc8cadf1fb0fc32c0d05cce3b443abbd237d8"
     },
     "include/native_video.h": {
       "bytes": 10817,
-      "sha256": "d18dc0796f92d9c876874d1a378ddb514f04649f037d5571e90190e072e4c043"
+      "sha256": "224170d2784b0ccdefeaf0b2ebf6e8f6a1e2155a819651798d0baa25ef7c9199"
     },
     "include/third_party/LICENSE.llama.cpp": {
       "bytes": 1078,
@@ -72,8 +72,8 @@
       "sha256": "feefc44b52c38442a5d149a6fadbaed8dbe34de316845f0e51c858a0e496cf7c"
     },
     "run_hf.py": {
-      "bytes": 3751,
-      "sha256": "f3cdd5208227363548a877a5376e106c1f1a41181e5106ac215ad9ed06e7f9df"
+      "bytes": 3936,
+      "sha256": "ac5cd6ce1cc062636890996d0f7ea85879c3f223cdcf616243df9e229e0959e8"
     },
     "src/native_audio_tool.cpp": {
       "bytes": 4029,

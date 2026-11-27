@@ -33,6 +33,7 @@ struct wemm_native_cli {
           "              [--timestamp-interval-sec 1] [--audio-compute bf16|f32]\n"
           "              [--gpu-layers 99] [--context 73728] [--threads 4]\n"
           "              [--batch 512] [--fps 2] [--max-new-tokens 512]\n"
+          "              [--max-frames 128] [--total-pixels 25165824]\n"
           "  --request FILE   replay a frozen request for independent alignment checks\n"
           "  --prepare-only   prepare raw video in C++ without loading any model\n"
           "  --help           show usage without loading models\n";
@@ -52,7 +53,7 @@ struct wemm_native_cli {
         int gpu = 0, threads = 4, context = 73728, batch = 512, min_tokens = 4, max_tokens = 768;
         int max_new = 512;
         bool max_new_set = false;
-        int max_frames = 768, total_pixels = 25165824;
+        int max_frames = 128, total_pixels = 25165824;
         double fps = 2;
         for (int i = 1; i < argc; ++i) {
             const std::string key = argv[i];

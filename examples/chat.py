@@ -24,7 +24,7 @@ MEDIA = {
 }
 
 
-def message_for(case):
+def message_for(case, *, fps=None, max_frames=None, total_pixels=None):
     prompt = PROMPTS[case]
     if case == "text":
         return {"role": "user", "content": prompt}
@@ -34,7 +34,15 @@ def message_for(case):
     data = base64.b64encode((MEDIA_DIR / filename).read_bytes()).decode("ascii")
     source = {"url": f"data:{mime_type};base64,{data}"}
     if modality == "video":
-        source.update(use_audio=case == "video-audio", fps=1, max_frames=16)
+        # Leave sampling to the server unless the caller explicitly overrides it.
+        source["use_audio"] = case == "video-audio"
+        source.update({
+            key: value
+            for key, value in {
+                "fps": fps, "max_frames": max_frames, "total_pixels": total_pixels,
+            }.items()
+            if value is not None
+        })
     part_type = f"{modality}_url"
     return {
         "role": "user",
@@ -51,10 +59,19 @@ def main():
     parser.add_argument("--model", required=True, help="The model ID or alias exposed by the server")
     parser.add_argument("--base-url", default="http://127.0.0.1:8000/v1")
     parser.add_argument("--timeout", type=float, default=240, help="Request timeout in seconds")
+    parser.add_argument("--fps", type=float, help="Override the server's sampling FPS (video only)")
+    parser.add_argument("--max-frames", type=int, help="Override the server's frame limit (video only)")
+    parser.add_argument("--total-pixels", type=int, help="Override the server's video pixel budget (video only)")
     args = parser.parse_args()
+    if args.case not in ("video", "video-audio") and any(
+        value is not None for value in (args.fps, args.max_frames, args.total_pixels)
+    ):
+        parser.error("--fps, --max-frames and --total-pixels require video or video-audio")
     payload = {
         "model": args.model,
-        "messages": [message_for(args.case)],
+        "messages": [message_for(
+            args.case, fps=args.fps, max_frames=args.max_frames, total_pixels=args.total_pixels,
+        )],
         "temperature": 0,
         "max_tokens": 160,
         "chat_template_kwargs": {"enable_thinking": False},

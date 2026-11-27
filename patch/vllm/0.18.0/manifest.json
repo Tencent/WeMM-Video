@@ -54,7 +54,7 @@
       "upstream_sha256": null
     },
     "vllm/multimodal/wemm_video_policy.py": {
-      "sha256": "5a08358f04b011c401d6355cf396caebae4536442df76ae17dc89470c2b1a50e",
+      "sha256": "8523cf0b8631094f503db11b2ce4e614732730181da0ca3e4af0f82a2b1ddf37",
       "upstream_sha256": null
     },
     "vllm/multimodal/wemm_zip.py": {

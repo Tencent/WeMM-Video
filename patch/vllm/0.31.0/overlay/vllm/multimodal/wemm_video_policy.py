@@ -79,7 +79,7 @@ def resolve_video_options(defaults=None, overrides=None):
             result[key] = defaults[key]
     for key, value in {
         "fps": 2.0, "min_frames": 4, "max_frames": 128,
-        "total_pixels": 117964800, "min_pixels": 4096,
+        "total_pixels": 25165824, "min_pixels": 4096,
     }.items():
         result.setdefault(key, value)
     for key in VIDEO_OPTION_KEYS + VIDEO_CAP_KEYS:

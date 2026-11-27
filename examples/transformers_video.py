@@ -9,7 +9,15 @@ DEFAULT_VIDEO = Path(__file__).resolve().parent / "media" / "apollo-11-first-ste
 DEFAULT_PROMPT = "Describe what happens on screen and summarize the speech you hear."
 
 
-def prepare_inputs(processor, video, prompt):
+def prepare_inputs(processor, video, prompt, *, fps=None, max_frames=None, total_pixels=None):
+    # Omitted options inherit the checkpoint's processor_config.json.
+    sampling = {
+        key: value
+        for key, value in {
+            "fps": fps, "max_frames": max_frames, "total_pixels": total_pixels,
+        }.items()
+        if value is not None
+    }
     messages = [
         {
             "role": "user",
@@ -17,10 +25,7 @@ def prepare_inputs(processor, video, prompt):
                 {
                     "type": "video_audio",
                     "video": str(video),
-                    "fps": 1.0,
-                    "min_frames": 4,
-                    "max_frames": 16,
-                    "total_pixels": 262144,
+                    **sampling,
                 },
                 {"type": "text", "text": prompt},
             ],
@@ -42,6 +47,9 @@ def main():
     parser.add_argument("--revision", default="main", help="Model and processor Hub revision")
     parser.add_argument("--video", type=Path, default=DEFAULT_VIDEO, help="Local video with audio")
     parser.add_argument("--prompt", default=DEFAULT_PROMPT)
+    parser.add_argument("--fps", type=float, help="Override the processor's sampling FPS")
+    parser.add_argument("--max-frames", type=int, help="Override the processor's frame limit")
+    parser.add_argument("--total-pixels", type=int, help="Override the processor's video pixel budget")
     args = parser.parse_args()
     if not args.video.is_file():
         parser.error(f"Video file does not exist: {args.video}")
@@ -59,7 +67,10 @@ def main():
         dtype=torch.bfloat16,
         device_map="auto",
     )
-    inputs = prepare_inputs(processor, args.video, args.prompt).to(model.device)
+    inputs = prepare_inputs(
+        processor, args.video, args.prompt,
+        fps=args.fps, max_frames=args.max_frames, total_pixels=args.total_pixels,
+    ).to(model.device)
     with torch.inference_mode():
         output = model.generate(**inputs, max_new_tokens=128, do_sample=False)
     completion = output[0, inputs.input_ids.shape[1]:]

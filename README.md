@@ -138,7 +138,6 @@ print(ask("Transcribe the English speech in this recording.", {
 # Use the same MP4 for frames alone or for frames with the original soundtrack.
 clip = {
     "video": "examples/media/apollo-11-first-steps.mp4",
-    "fps": 1.0, "min_frames": 4, "max_frames": 16, "total_pixels": 262144,
 }
 print(ask("Describe what happens on screen.", {"type": "video", **clip}))
 print(ask("Describe the scene and summarize the speech.", {"type": "video_audio", **clip}))
@@ -149,7 +148,33 @@ The example uses instruct mode. Set `enable_thinking=True` in
 
 To run just the video-with-audio example from the command line, use
 `python examples/transformers_video.py`. It accepts `--video`, `--model`, and
-`--revision`.
+`--revision`, plus optional `--fps`, `--max-frames`, and `--total-pixels` overrides.
+
+### Video sampling and memory
+
+Video examples inherit `wemm_defaults` from the checkpoint's
+[`processor_config.json`](https://huggingface.co/tencent/WeMM-Video-2B/blob/main/processor_config.json):
+`fps=2.0`, `min_frames=4`, `max_frames=128`, `total_pixels=25165824`, and
+`min_pixels=4096`. The serving client inherits the server's configuration and
+only sends sampling overrides when explicitly requested. The GGUF launcher and
+native runtime use the same video defaults. `max_frames` is an upper limit;
+the actual frame count also depends on clip duration and sampling FPS.
+
+If GPU memory or compute is limited, lower the pixel budget, frame limit, and
+sampling FPS together. For example, this is a **low-resource quick check**:
+
+```bash
+python examples/transformers_video.py --video examples/media/apollo-11-first-steps.mp4 \
+  --fps 1 --max-frames 16 --total-pixels 262144
+```
+
+These options also work with `examples/chat.py video-audio` and
+`native/run_hf.py`. Smaller values trade spatial detail and temporal coverage
+for lower resource use and may miss brief actions or cuts. Increasing frames
+alone shares the same pixel budget across more frames; per-frame sizing also
+includes the processor's temporal factor of 2. See the
+[serving guide](docs/serving.md#video-sampling-and-memory) for server-wide overrides
+and context-length settings.
 
 ## Serving and Examples
 
@@ -186,10 +211,9 @@ docker run --rm --gpus all --shm-size=8g \
   --env HF_TOKEN \
   wemm-video:vllm-0.18.0-cu129 \
   vllm serve "$MODEL" --served-model-name "$MODEL" --trust-remote-code --dtype bfloat16 \
-  --host 0.0.0.0 --port 8000 --max-model-len 8192 \
+  --host 0.0.0.0 --port 8000 --max-model-len 65536 \
   --no-enable-prefix-caching --mamba-ssm-cache-dtype float32 \
-  --limit-mm-per-prompt '{"image":4,"video":2,"audio":2}' \
-  --media-io-kwargs '{"video":{"fps":2,"min_frames":4,"max_frames":16,"total_pixels":262144}}'
+  --limit-mm-per-prompt '{"image":4,"video":2,"audio":2}'
 ```
 
 #### SGLang
@@ -204,7 +228,7 @@ docker run --rm --gpus all --shm-size=8g \
   --env HF_TOKEN \
   wemm-video:sglang-0.5.16-cu129 \
   python -m sglang.launch_server --model-path "$MODEL" --served-model-name "$MODEL" --trust-remote-code \
-  --host 0.0.0.0 --port 8000 --dtype bfloat16 --context-length 8192 \
+  --host 0.0.0.0 --port 8000 --dtype bfloat16 --context-length 65536 \
   --attention-backend triton --linear-attn-backend triton \
   --limit-mm-data-per-request '{"image":4,"video":2,"audio":2}'
 ```
@@ -213,8 +237,9 @@ docker run --rm --gpus all --shm-size=8g \
 
 For both patched backends, send a `video_url` content item to
 `POST /v1/chat/completions`. Set `video_url.use_audio` to `true` to include the
-original soundtrack or `false` for frames only. Place `fps` and `max_frames`
-inside `video_url` to control frame sampling. See the [full HTTP request
+original soundtrack or `false` for frames only. Omit sampling fields to inherit
+the server defaults, or place `fps`, `max_frames`, and `total_pixels`
+inside `video_url` to override them for a clip. See the [full HTTP request
 example](docs/serving.md#send-a-video-request) for the Thinking-mode option.
 
 The named volume keeps downloaded weights across container runs. When the
